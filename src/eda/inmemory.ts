@@ -1,11 +1,10 @@
 import { Deferred } from "../deferred";
-
 import {
   Event,
-  EventHandler,
   EventBus,
-  FullEvent,
+  EventHandler,
   EventPersistor,
+  FullEvent,
 } from "./index";
 
 export const EventBusInMemory = (props: {

@@ -29,7 +29,7 @@ export const getNominalToken = <
 };
 
 export type NominalFactory<Token extends string | symbol, Data> = {
-  _construct: (
+  new: (
     data: ReverseNominal<Data>
   ) => Readonly<Nominal<Token, ReverseNominal<Data>>>;
   match: (value: any) => value is Nominal<Token, ReverseNominal<Data>>;
@@ -42,14 +42,14 @@ export const NominalFactory = <
 >(
   token: Token
 ): NominalFactory<Token, Data> => {
-  const _construct = (
+  const make = (
     data: ReverseNominal<Data>
   ): Nominal<Token, ReverseNominal<Data>> => {
     return Nominal(data, token);
   };
 
   return {
-    _construct,
+    new: make,
     match: (value: any): value is Nominal<Token, ReverseNominal<Data>> => {
       return value[NominalToken] === token;
     },
