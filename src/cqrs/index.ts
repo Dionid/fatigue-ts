@@ -132,11 +132,11 @@ export const Hybrid = {
     createdAt?: Date;
   }): Hybrid<H["type"], H["data"], H["_result"]> => {
     return {
-      type: props.type,
       data: props.data,
+      type: props.type,
       meta: {
-        userId: props.userId,
         transactionId: props.transactionId || v4(),
+        userId: props.userId,
         parentTransactionId: props.parentTransactionId,
         createdAt: props.createdAt || new Date(),
       },

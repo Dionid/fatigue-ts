@@ -9,7 +9,7 @@ export class CodeError extends Error {
 
 // . Accessibility errors
 export class PublicError extends CodeError {
-  internalMessage: string;
+  public internalMessage: string;
 
   constructor(publicMessage: string, internalMessage?: string, code?: string) {
     super(publicMessage, code);

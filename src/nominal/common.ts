@@ -1,6 +1,5 @@
-import { BrandedPrimitive } from "../branded";
 import * as uuid from "uuid";
-import { v4 } from "uuid";
+import { BrandedPrimitive } from "../branded";
 
 import { ValidationError } from "../errors";
 
@@ -40,12 +39,12 @@ export const NotEmptyString = {
 
 export type UUID = BrandedPrimitive<string, { readonly UUID: unique symbol }>;
 export const UUID = {
+  new: () => {
+    return UUID.ofString(uuid.v4()) as UUID;
+  },
   ofString: (value: string) => {
     return !uuid.validate(value)
       ? new ValidationError("not valid uuid")
       : (value as UUID);
-  },
-  new: () => {
-    return UUID.ofString(v4()) as UUID;
   },
 };

@@ -1,5 +1,5 @@
+import { Maybe, pipe } from "functional-oriented-programming-ts";
 import { Knex } from "knex";
-import { pipe, Maybe } from "functional-oriented-programming-ts";
 
 export const limitArgToQuery =
   (args: { limit?: Maybe<number> }) =>
@@ -25,12 +25,12 @@ export const orderByArgToQuery =
   (args: { orderBy?: Maybe<Record<string, Maybe<string>>> }) =>
   <Q extends Knex.QueryBuilder>(query: Q): Q => {
     if (args.orderBy) {
-      return Object.entries(args.orderBy).reduce((query, [name, val]) => {
+      return Object.entries(args.orderBy).reduce((reducedQuery, [name, val]) => {
         if (val) {
-          return query.orderBy(name, val) as Q;
+          return reducedQuery.orderBy(name, val) as Q;
         }
 
-        return query;
+        return reducedQuery;
       }, query);
     }
 

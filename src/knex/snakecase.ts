@@ -1,5 +1,5 @@
 // Stolen from objection.js
-type mapper = (str: string) => string;
+type Mapper = (str: string) => string;
 
 // Super fast memoize for single argument functions.
 function memoize(func: any): (input: any) => string {
@@ -133,7 +133,7 @@ function camelCase(str: string, { upperCase = false } = {}): string {
 // only calls `mapper` for the last part and concatenates the string back together.
 // If no separators are found, `mapper` is called for the entire string.
 function mapLastPart(
-  mapper: mapper,
+  mapper: Mapper,
   separator: string
 ): (str: string) => string {
   return (str: string): string => {
@@ -147,7 +147,7 @@ function mapLastPart(
 // Returns a function that takes an object as an input and maps the object's keys
 // using `mapper`. If the input is not an object, the input is returned unchanged.
 function keyMapper(
-  mapper: mapper
+  mapper: Mapper
 ): (obj: Record<string, any>) => Record<string, any> {
   return (obj: Record<string, any>): Record<string, any> => {
     if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
@@ -203,7 +203,7 @@ function knexIdentifierMappers({
   };
 }
 
-interface KnexSnakeCaseMappersResult {
+type KnexSnakeCaseMappersResult = {
   postProcessResponse?: (result: any, queryContext: any) => any;
   wrapIdentifier?: (
     value: string,
@@ -214,7 +214,7 @@ interface KnexSnakeCaseMappersResult {
 
 export function knexSnakeCaseMappers(opt = {}): KnexSnakeCaseMappersResult {
   return knexIdentifierMappers({
-    parse: (str: string) => camelCase(str, opt),
     format: (str: string) => snakeCase(str, opt),
+    parse: (str: string) => camelCase(str, opt),
   });
 }

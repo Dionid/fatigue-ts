@@ -1,5 +1,5 @@
-import { Knex } from "knex";
 import { pipe } from "functional-oriented-programming-ts";
+import { Knex } from "knex";
 
 export type Count = string | number | undefined;
 
