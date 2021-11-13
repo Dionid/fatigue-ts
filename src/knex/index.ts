@@ -1,2 +1,2 @@
-export * from "./fns"
-export * from "./snakecase"
+export * from './fns'
+export * from './snakecase'

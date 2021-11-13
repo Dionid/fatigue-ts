@@ -1,19 +1,19 @@
-import { InternalError } from "../errors";
+import { InternalError } from '../errors'
 
 export const getEnvOrThrow =
   (log?: (e: Error) => any) =>
   (envName: string): string => {
-    const value = process.env[envName];
+    const value = process.env[envName]
 
     if (!value) {
-      const err = new InternalError(`Env variable '${envName}' is required`);
+      const err = new InternalError(`Env variable '${envName}' is required`)
 
       if (log) {
-        log(err);
+        log(err)
       }
 
-      throw err;
+      throw err
     }
 
-    return value;
-  };
+    return value
+  }

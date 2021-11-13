@@ -1,19 +1,19 @@
 export class CodeError extends Error {
-  public code?: string;
+  public code?: string
 
   constructor(message: string, code?: string) {
-    super(message);
-    this.code = code;
+    super(message)
+    this.code = code
   }
 }
 
 // . Accessibility errors
 export class PublicError extends CodeError {
-  public internalMessage: string;
+  public internalMessage: string
 
   constructor(publicMessage: string, internalMessage?: string, code?: string) {
-    super(publicMessage, code);
-    this.internalMessage = internalMessage || publicMessage;
+    super(publicMessage, code)
+    this.internalMessage = internalMessage || publicMessage
   }
 }
 export class InternalError extends CodeError {}
@@ -27,27 +27,27 @@ export class NotFoundError extends PublicError {}
 
 export class UnauthorizedError extends PermissionDeniedError {
   constructor() {
-    super("You must be authorized");
+    super('You must be authorized')
   }
 }
 
 export const throwOnUndefined = <T>(error: Error, value: T | undefined): T => {
   if (value === undefined) {
-    throw error;
+    throw error
   }
 
-  return value;
-};
+  return value
+}
 
 export const throwOnError =
   (fn?: (prevErr: Error) => Error) =>
   <T>(value: T): Exclude<T, Error> => {
     if (value instanceof Error) {
-      throw fn ? fn(value) : value;
+      throw fn ? fn(value) : value
     }
 
-    return value as Exclude<T, Error>;
-  };
+    return value as Exclude<T, Error>
+  }
 
 // export const throwOnError =
 //   (fn?: (prevErr: Error) => Error) =>
@@ -59,16 +59,14 @@ export const throwOnError =
 //     return value as Exclude<T, Error>;
 //   };
 
-export const returnOnThrow = async <R>(
-  callback: () => Promise<R>
-): Promise<R | Error> => {
+export const returnOnThrow = async <R>(callback: () => Promise<R>): Promise<R | Error> => {
   try {
-    return await callback();
+    return await callback()
   } catch (e) {
     if (!(e instanceof Error)) {
-      throw e;
+      throw e
     }
 
-    return e;
+    return e
   }
-};
+}
