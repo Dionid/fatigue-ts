@@ -5,7 +5,6 @@ Types and functions to create software using FDD:
 1. EDA
 1. CQRS
 1. Typed Errors
-1. ADT
 1. FOP
 1. Knex and Apollo helpers
 

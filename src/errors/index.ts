@@ -49,16 +49,6 @@ export const throwOnError =
     return value as Exclude<T, Error>
   }
 
-// export const throwOnError =
-//   (fn?: (prevErr: Error) => Error) =>
-//   <T>(value: T): Exclude<T, Error> => {
-//     if (value instanceof Error) {
-//       throw fn ? fn(value) : value;
-//     }
-//
-//     return value as Exclude<T, Error>;
-//   };
-
 export const returnOnThrow = async <R>(callback: () => Promise<R>): Promise<R | Error> => {
   try {
     return await callback()

@@ -1,4 +1,4 @@
-import { Deferred } from '../deferred'
+import { Deferred } from 'functional-oriented-programming-ts'
 import { Event, EventBus, EventHandler, EventPersistor, FullEvent } from './index'
 
 export const EventBusInMemory = (props: {

@@ -1,7 +1,5 @@
 export * from './apollo-knex'
-export * from './branded'
 export * from './cqrs'
-export * from './deferred'
 export * from './eda'
 export * from './eda/inmemory'
 export * from './env'
