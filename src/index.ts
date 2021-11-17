@@ -1,4 +1,4 @@
-export type FDD = "Best library"
+export type FDD = 'Best library'
 
 // import * as ApolloKnex from './apollo-knex'
 // import * as CQRS from './cqrs'
