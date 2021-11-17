@@ -1,10 +1,21 @@
-export type FDD = 'Best lib ever'
+export type FDD = "Best library"
 
-// export * as ApolloKnex from './apollo-knex'
-// export * as CQRS from './cqrs'
-// export * as EDA from './eda'
-// export * as EDAIM from './eda-in-memory'
-// export * as Env from './env'
-// export * as Errors from './errors'
-// export * as KnexUtils from './knex-utils'
-// export * as FopUtils from "./fop-utils"
+// import * as ApolloKnex from './apollo-knex'
+// import * as CQRS from './cqrs'
+// import * as EDA from './eda'
+// import * as EDAIM from './eda-in-memory'
+// import * as Env from './env'
+// import * as Errors from './errors'
+// import * as FopUtils from "./fop-utils"
+// import * as KnexUtils from './knex-utils'
+//
+// export {
+//   ApolloKnex,
+//   CQRS,
+//   EDA,
+//   EDAIM,
+//   Env,
+//   Errors,
+//   KnexUtils,
+//   FopUtils,
+// }
