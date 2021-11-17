@@ -42,3 +42,9 @@ export const mapCommonSearchParamsToQuery = (args: {
   offset?: Maybe<number>
   limit?: Maybe<number>
 }) => pipe(limitArgToQuery(args), offsetArgToQuery(args), orderByArgToQuery(args))
+
+export const ApolloKnex = {
+  limitArgToQuery,
+  offsetArgToQuery,
+  mapCommonSearchParamsToQuery,
+}

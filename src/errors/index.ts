@@ -39,7 +39,15 @@ export const throwOnUndefined = <T>(error: Error, value: T | undefined): T => {
   return value
 }
 
-export const throwOnError =
+export const throwOnError = <T>(value: T, fn?: (prevErr: Error) => Error): Exclude<T, Error> => {
+  if (value instanceof Error) {
+    throw fn ? fn(value) : value
+  }
+
+  return value as Exclude<T, Error>
+}
+
+export const throwOnErrorC =
   (fn?: (prevErr: Error) => Error) =>
   <T>(value: T): Exclude<T, Error> => {
     if (value instanceof Error) {
