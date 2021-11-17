@@ -230,20 +230,20 @@ export const EventBusInMemoryService = {
       unsubscribe: async <E extends Event<any, any, any>>(
         eventName: E['type'],
         eventHandler: EventHandler<FullEvent<E>>
-      ) => EventBusInMemoryService.new(await unsubscribe(ebps, eventName, eventHandler)),
+      ) => EventBusInMemoryService.create(await unsubscribe(ebps, eventName, eventHandler)),
       subscribe: async <E extends Event<any, any, any>>(
         eventName: E['type'],
         eventHandler: EventHandler<FullEvent<E>>
-      ) => EventBusInMemoryService.new(await subscribe(ebps, eventName, eventHandler)),
+      ) => EventBusInMemoryService.create(await subscribe(ebps, eventName, eventHandler)),
       publish: async (events: readonly FullEvent[]) => publish(ebps, events),
       pull: async <E extends Event<any, any, any>>(eventName: E['type']) => pull(ebps, eventName),
       observe: <E extends Event<any, any, any>>(eventName: E['type']) => observe(ebps, eventName),
-      tx: async () => EventBusInMemoryService.new(await tx(ebps)),
-      commit: async () => EventBusInMemoryService.new(await commit(ebps)),
-      rollback: async () => EventBusInMemoryService.new(await rollback(ebps))
+      tx: async () => EventBusInMemoryService.create(await tx(ebps)),
+      commit: async () => EventBusInMemoryService.create(await commit(ebps)),
+      rollback: async () => EventBusInMemoryService.create(await rollback(ebps))
     }
   },
-  new: (props: {
+  create: (props: {
     tx?: boolean
     storedEvents?: FullEvent[]
     eventHandlers?: Record<string, Array<EventHandler<any>>>

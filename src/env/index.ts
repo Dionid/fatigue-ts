@@ -17,7 +17,3 @@ export const getEnvOrThrow =
 
     return value
   }
-
-export const Env = {
-  getEnvOrThrow
-}
