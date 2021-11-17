@@ -1,6 +1,6 @@
 {
   "name": "fdd-ts",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Fatigue Driven Development (FDD) in Typescript",
   "main": "index.js",
   "types": "index.d.ts",

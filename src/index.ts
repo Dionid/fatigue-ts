@@ -1,4 +1,4 @@
-export type FDD = "Best lib ever"
+export type FDD = 'Best lib ever'
 
 // export * as ApolloKnex from './apollo-knex'
 // export * as CQRS from './cqrs'
