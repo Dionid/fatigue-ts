@@ -18,7 +18,7 @@ export type Query<Type extends string, Data extends Record<string, any>, R> = Co
   _result?: R
 }
 export const Query = {
-  new: <Type extends string, Data extends Record<string, any>, R>(props: {
+  create: <Type extends string, Data extends Record<string, any>, R>(props: {
     type: Type
     data: Data
     userId: Maybe<string>
@@ -41,7 +41,7 @@ export const Query = {
 
 export const QueryFactory = <Q extends Query<any, any, any>>(type: Q['type']) => {
   return {
-    new: (
+    create: (
       data: Q['data'],
       meta: {
         userId: Maybe<string>
@@ -50,7 +50,7 @@ export const QueryFactory = <Q extends Query<any, any, any>>(type: Q['type']) =>
         createdAt?: Date
       }
     ): Query<Q['type'], Q['data'], Q['_result']> => {
-      return Query.new({
+      return Query.create({
         type,
         data,
         ...meta
@@ -63,7 +63,7 @@ export const QueryFactory = <Q extends Query<any, any, any>>(type: Q['type']) =>
 export type Command<Type extends string, Data extends Record<string, any>> = Query<Type, Data, undefined>
 
 export const Command = {
-  new: <Type extends string, Data extends Record<string, any>>(props: {
+  create: <Type extends string, Data extends Record<string, any>>(props: {
     type: Type
     data: Data
     userId: Maybe<string>
@@ -86,7 +86,7 @@ export const Command = {
 
 export const CommandFactory = <Cmd extends Command<any, any>>(type: Cmd['type']) => {
   return {
-    new: (
+    create: (
       data: Cmd['data'],
       meta: {
         userId: Maybe<string>
@@ -95,7 +95,7 @@ export const CommandFactory = <Cmd extends Command<any, any>>(type: Cmd['type'])
         createdAt?: Date
       }
     ): Command<Cmd['type'], Cmd['data']> => {
-      return Command.new({
+      return Command.create({
         type,
         data,
         ...meta
@@ -107,7 +107,7 @@ export const CommandFactory = <Cmd extends Command<any, any>>(type: Cmd['type'])
 
 export type Hybrid<Type extends string, Data extends Record<string, any>, R> = Query<Type, Data, R>
 export const Hybrid = {
-  new: <H extends Hybrid<any, any, any>>(props: {
+  create: <H extends Hybrid<any, any, any>>(props: {
     type: H['type']
     data: H['data']
     userId: Maybe<string>
@@ -130,7 +130,7 @@ export const Hybrid = {
 
 export const HybridFactory = <H extends Hybrid<any, any, any>>(type: H['type']) => {
   return {
-    new: (
+    create: (
       data: H['data'],
       meta: {
         userId: Maybe<string>
@@ -139,7 +139,7 @@ export const HybridFactory = <H extends Hybrid<any, any, any>>(type: H['type']) 
         createdAt?: Date
       }
     ): Hybrid<H['type'], H['data'], H['_result']> => {
-      return Hybrid.new({
+      return Hybrid.create({
         type,
         data,
         ...meta

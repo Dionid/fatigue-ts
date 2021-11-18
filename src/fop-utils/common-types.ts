@@ -8,7 +8,7 @@ export const UUID = {
   ofString: (value: string) => {
     return !uuid.validate(value) ? new ValidationError('not valid uuid') : (value as UUID)
   },
-  new: () => {
+  create: () => {
     return UUID.ofString(v4()) as UUID
   }
 }
