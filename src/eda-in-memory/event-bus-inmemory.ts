@@ -1,11 +1,11 @@
 import { Deferred } from 'functional-oriented-programming-ts'
-import { Event, EventBus, EventBusService, EventHandler, FullEvent } from '../eda'
+import { Event, EventBusService, EventHandler, FullEvent } from '../eda'
 
 export type EventBusInMemoryPersistor = {
   saveEvent: <E extends FullEvent>(event: E) => Promise<E>
 }
 
-export type EventBusInMemory = EventBus & {
+export type EventBusInMemory = {
   tx: boolean
   storedEvents: FullEvent[]
   eventHandlers: Record<string, Array<EventHandler<any>>>
@@ -67,12 +67,7 @@ export const subscribe = async <E extends Event<any, any, any>>(
     ebps.eventHandlers[eventName] = [eventHandler]
   }
 
-  return {
-    ...ebps,
-    eventHandlers: {
-      ...ebps.eventHandlers
-    }
-  }
+  return ebps
 }
 
 export const subscribeC =

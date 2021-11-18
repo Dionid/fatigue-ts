@@ -78,20 +78,20 @@ export type Event<Type, Version extends string, Data extends Record<any, any>> =
   version: Version
 }
 
-export type EventFactory<E extends Event<any, any, any>> = {
-  new: (data: E['data']) => E
+export type EventBehaviour<E extends Event<any, any, any>> = {
+  create: (data: E['data']) => E
   type: E['type']
   version: E['version']
   is: (e: Event<any, any, any>) => e is E
   isFull: (e: FullEvent) => e is FullEvent<E>
 }
 
-export const newEventFactory = <E extends Event<any, any, any>>(
+export const createEventBehaviour = <E extends Event<any, any, any>>(
   type: E['type'],
   version: E['version']
-): EventFactory<E> => {
+): EventBehaviour<E> => {
   return {
-    new: (data: E['data']): E => {
+    create: (data: E['data'] = {}): E => {
       return {
         type,
         data,
@@ -109,8 +109,8 @@ export const newEventFactory = <E extends Event<any, any, any>>(
   }
 }
 
-export const EventFactory = {
-  new: newEventFactory
+export const EventBehaviour = {
+  create: createEventBehaviour
 }
 
 export type EventHandler<E extends FullEvent<any>> = (event: E) => Promise<void>
