@@ -12,10 +12,7 @@ export type EventBusImplBehaviour<EBID> = {
     eventHandler: EventHandler<FullEvent<E>>
   ) => Promise<EBID>
   publish: (ebd: EBID, events: readonly FullEvent[]) => Promise<void>
-  pull: <E extends Event<any, any, any>>(
-    ebd: EBID,
-    eventName: E['type']
-  ) => Promise<E>
+  pull: <E extends Event<any, any, any>>(ebd: EBID, eventName: E['type']) => Promise<E>
   observe: <E extends Event<any, any, any>>(
     ebd: EBID,
     eventName: E['type']
@@ -30,10 +27,7 @@ export type EventBus<EBID extends Record<any, any> = any> = {
   behaviour: EventBusImplBehaviour<EBID>
 }
 
-export const create = <EBID>(
-  data: EBID,
-  behaviour: EventBusImplBehaviour<EBID>,
-): EventBus<EBID> => {
+export const create = <EBID>(data: EBID, behaviour: EventBusImplBehaviour<EBID>): EventBus<EBID> => {
   return {
     data,
     behaviour
@@ -66,19 +60,18 @@ export const publish = async (eb: EventBus, events: readonly FullEvent[]): Promi
   await eb.behaviour.publish(eb.data, events)
 
   return {
-    ...eb,
+    ...eb
   }
 }
 
-export const pull = <
-  E extends Event<any, any, any>,
-  >(eb: EventBus, eventName: E['type']): Promise<E> => {
+export const pull = <E extends Event<any, any, any>>(eb: EventBus, eventName: E['type']): Promise<E> => {
   return eb.behaviour.pull(eb.data, eventName)
 }
 
-export const observe = <
-  E extends Event<any, any, any>,
-  >(eb: EventBus, eventName: E['type']): AsyncGenerator<{ stop: () => void; data: E }, void, unknown> => {
+export const observe = <E extends Event<any, any, any>>(
+  eb: EventBus,
+  eventName: E['type']
+): AsyncGenerator<{ stop: () => void; data: E }, void, unknown> => {
   return eb.behaviour.observe(eb.data, eventName)
 }
 
@@ -112,7 +105,7 @@ export const EventBus = {
   observe,
   tx,
   commit,
-  rollback,
+  rollback
 }
 
 export type EventBusService = {
