@@ -3,11 +3,7 @@
 class Event<Name extends string, Version extends string> {
   public static eventName: () => string
 
-  constructor(
-    public name: Name,
-    public version: Version,
-    public data: Record<any, any>,
-  ) {}
+  constructor(public name: Name, public version: Version, public data: Record<any, any>) {}
 }
 
 // .. Example
@@ -29,9 +25,7 @@ class EventClassFactory {
   ) => {
     return class extends Event<Type, Version> {
       public static eventName: () => Type = () => name
-      constructor(
-        public data: Data,
-      ) {
+      constructor(public data: Data) {
         super(name, version, data)
       }
     }

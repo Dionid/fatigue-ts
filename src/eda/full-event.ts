@@ -1,6 +1,6 @@
-import {Maybe} from "functional-oriented-programming-ts";
-import {v4} from "uuid";
-import {Event} from "./event";
+import { Maybe } from 'functional-oriented-programming-ts'
+import { v4 } from 'uuid'
+import { Event } from './event'
 
 export type FullEventMeta = {
   userId: Maybe<string>
@@ -67,9 +67,9 @@ export const ofCmdOrQuery = <E extends Event<any, any, any>>(props: {
   }
 }
 export const mapEventsFromCmdOrQuery =
-(meta: { userId: Maybe<string>; transactionId: string }) => (events: Array<Event<any, any, any>>) => {
-  return events.map((event) => ofCmdOrQuery({event, meta}))
-}
+  (meta: { userId: Maybe<string>; transactionId: string }) => (events: Array<Event<any, any, any>>) => {
+    return events.map((event) => ofCmdOrQuery({ event, meta }))
+  }
 
 export const FullEvent = {
   ofEvent,

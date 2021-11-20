@@ -10,17 +10,17 @@ export const Event = {
   create: <Name extends string, Version extends string, Data extends Record<any, any>>(
     eName: Name,
     eVersion: Version,
-    eData: Data,
+    eData: Data
   ): Event<Name, Version, Data> => {
     return {
       name: eName,
       data: eData,
-      version: eVersion,
+      version: eVersion
     }
   },
-  is: <E extends Event<any, any, any>>(event: Event<any, any, any>, name: E["name"]): event is E => {
+  is: <E extends Event<any, any, any>>(event: Event<any, any, any>, name: E['name']): event is E => {
     return event.name === name
-  },
+  }
 }
 
 // . Example
@@ -44,14 +44,11 @@ export const Event = {
 // }
 
 export const EventBehaviourFactory = {
-  create: <E extends Event<any, any, any>>(
-    name: E['name'],
-    version: E['version']
-  ) => {
+  create: <E extends Event<any, any, any>>(name: E['name'], version: E['version']) => {
     return {
       name: () => name,
-      create: (data: E["data"]) => Event.create(name, version, data),
-      is: (event: Event<any, any, any>): event is E => Event.is<E>(event, name),
+      create: (data: E['data']) => Event.create(name, version, data),
+      is: (event: Event<any, any, any>): event is E => Event.is<E>(event, name)
     }
   }
 }
