@@ -1,4 +1,4 @@
-# 🛌 Fatigue Driven Development (FDD) for TypeScript
+# 🛌 Fatigue Driven Development (FDD) for Node.js (TypeScript)
 
 Types and functions to create software using FDD:
 
