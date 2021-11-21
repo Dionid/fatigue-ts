@@ -12,7 +12,7 @@ export type EventBusImplBehaviour<EBID> = {
     eventName: E['name'],
     eventHandler: FullEventHandler<FullEvent<E>>
   ) => Promise<EBID>
-  publish: (ebid: EBID, events: readonly FullEvent[]) => Promise<void>
+  publish: <E extends readonly FullEvent[]>(ebid: EBID, events: E) => Promise<E>
   pull: <E extends Event<any, any, any>>(ebid: EBID, eventName: E['name']) => Promise<E>
   observe: <E extends Event<any, any, any>>(
     ebid: EBID,

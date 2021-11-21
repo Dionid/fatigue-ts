@@ -10,7 +10,7 @@ export type EventBusSF = {
     eventName: E['name'],
     eventHandler: FullEventHandler<FullEvent<E>>
   ): Promise<EventBusSF>
-  publish(events: readonly FullEvent[]): Promise<void>
+  publish<E extends readonly FullEvent[]>(events: E): Promise<E>
   pull<E extends Event<any, any, any>>(eventName: E['name']): Promise<E>
   observe<E extends Event<any, any, any>>(
     eventName: E['name']

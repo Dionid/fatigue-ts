@@ -1,4 +1,4 @@
-import {Event, FullEvent, FullEventHandler, EventBusSF} from "../eda";
+import {Event, EventBusSF, FullEvent, FullEventHandler} from "../eda";
 import {
   commit,
   create,
@@ -26,7 +26,7 @@ export const EventBusInMemorySF = {
         eventName: E['name'],
         eventHandler: FullEventHandler<FullEvent<E>>
       ) => EventBusInMemorySF.create(await subscribe(ebim, eventName, eventHandler)),
-      publish: async (events: readonly FullEvent[]) => publish(ebim, events),
+      publish: async <E extends readonly FullEvent[]>(events: E) => publish<E>(ebim, events),
       pull: async <E extends Event<any, any, any>>(eventName: E['name']) => pull(ebim, eventName),
       observe: <E extends Event<any, any, any>>(eventName: E['name']) => observe(ebim, eventName),
       tx: async () => EventBusInMemorySF.create(await tx(ebim)),

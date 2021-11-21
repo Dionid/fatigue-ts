@@ -41,7 +41,7 @@ export const create = (
 export const unsubscribe = async <E extends Event<any, any, any>>(
   ebim: EventBusInMemory,
   eventName: E['name'],
-  eventHandler: FullEventHandler<FullEvent<E>>
+  eventHandler: FullEventHandler<FullEvent<E>>,
 ): Promise<EventBusInMemory> => {
   if (ebim.eventHandlers[eventName]) {
     ebim.eventHandlers[eventName] = ebim.eventHandlers[eventName].filter((c) => c === eventHandler)
@@ -50,16 +50,10 @@ export const unsubscribe = async <E extends Event<any, any, any>>(
   return ebim
 }
 
-export const unsubscribeC =
-  <E extends Event<any, any, any>>(eventName: E['name'], eventHandler: FullEventHandler<FullEvent<E>>) =>
-  async (ebim: EventBusInMemory): Promise<EventBusInMemory> => {
-    return unsubscribe(ebim, eventName, eventHandler)
-  }
-
 export const subscribe = async <E extends Event<any, any, any>>(
   ebim: EventBusInMemory,
   eventName: E['name'],
-  eventHandler: FullEventHandler<FullEvent<E>>
+  eventHandler: FullEventHandler<FullEvent<E>>,
 ): Promise<EventBusInMemory> => {
   if (ebim.eventHandlers[eventName]) {
     ebim.eventHandlers[eventName].push(eventHandler)
@@ -70,13 +64,7 @@ export const subscribe = async <E extends Event<any, any, any>>(
   return ebim
 }
 
-export const subscribeC =
-  <E extends Event<any, any, any>>(eventName: E['name'], eventHandler: FullEventHandler<FullEvent<E>>) =>
-  async (ebim: EventBusInMemory): Promise<EventBusInMemory> => {
-    return subscribe(ebim, eventName, eventHandler)
-  }
-
-const dispatch = (events: readonly FullEvent[]) => async (ebim: EventBusInMemory) => {
+const dispatch = async (ebim: EventBusInMemory, events: readonly FullEvent[]) => {
   await events.map(async (event) => {
     const handlers = ebim.eventHandlers[event.name]
 
@@ -100,21 +88,17 @@ const dispatch = (events: readonly FullEvent[]) => async (ebim: EventBusInMemory
   })
 }
 
-export const publish = async (ebim: EventBusInMemory, events: readonly FullEvent[]): Promise<void> => {
+export const publish = async <E extends readonly FullEvent[]>(ebim: EventBusInMemory, events: E): Promise<E> => {
   if (ebim.tx) {
     ebim.storedEvents.push(...events)
 
-    return
+    return events
   }
 
-  await dispatch(events)(ebim)
+  await dispatch(ebim, events)
+
+  return events
 }
-
-export const publishC =
-  (events: readonly FullEvent[]) =>
-  async (ebim: EventBusInMemory): Promise<void> => {
-    return publish(ebim, events)
-  }
 
 export const tx = async (ebim: EventBusInMemory): Promise<EventBusInMemory> => {
   return {
@@ -129,7 +113,7 @@ export const commit = async (ebim: EventBusInMemory): Promise<EventBusInMemory> 
     return ebim
   }
 
-  await dispatch(ebim.storedEvents)(ebim)
+  await dispatch(ebim, ebim.storedEvents)
 
   return {
     ...ebim,
@@ -164,11 +148,6 @@ export const pull = async <E extends Event<any, any, any>>(
   })
 }
 
-export const pullC =
-  <E extends Event<any, any, any>>(eventName: E['name']) =>
-  (ebim: EventBusInMemory): Promise<E> =>
-    pull(ebim, eventName)
-
 export async function* observe<E extends Event<any, any, any>>(
   ebim: EventBusInMemory,
   eventName: E['name']
@@ -195,24 +174,14 @@ export async function* observe<E extends Event<any, any, any>>(
   }
 }
 
-export const observeC =
-  <E extends Event<any, any, any>>(eventName: E['name']) =>
-  (ebim: EventBusInMemory): AsyncGenerator<{ stop: () => void; data: E }, void, unknown> =>
-    observe(ebim, eventName)
-
 export type EventBusInMemoryBehaviour = typeof EventBusInMemory
 export const EventBusInMemory = {
   create,
   unsubscribe,
-  unsubscribeC,
   subscribe,
-  subscribeC,
   publish,
-  publishC,
   pull,
-  pullC,
   observe,
-  observeC,
   tx,
   commit,
   rollback
