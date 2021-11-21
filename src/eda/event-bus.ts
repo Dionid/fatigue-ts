@@ -1,26 +1,26 @@
-import { Event } from './event'
-import { FullEvent, FullEventHandler } from './full-event'
+import {Event} from './event'
+import {FullEvent, FullEventHandler} from './full-event'
 
 export type EventBusImplBehaviour<EBID> = {
   unsubscribe: <E extends Event<any, any, any>>(
-    ebd: EBID,
+    ebid: EBID,
     eventName: E['name'],
     eventHandler: FullEventHandler<FullEvent<E>>
   ) => Promise<EBID>
   subscribe: <E extends Event<any, any, any>>(
-    ebd: EBID,
+    ebid: EBID,
     eventName: E['name'],
     eventHandler: FullEventHandler<FullEvent<E>>
   ) => Promise<EBID>
-  publish: (ebd: EBID, events: readonly FullEvent[]) => Promise<void>
-  pull: <E extends Event<any, any, any>>(ebd: EBID, eventName: E['name']) => Promise<E>
+  publish: (ebid: EBID, events: readonly FullEvent[]) => Promise<void>
+  pull: <E extends Event<any, any, any>>(ebid: EBID, eventName: E['name']) => Promise<E>
   observe: <E extends Event<any, any, any>>(
-    ebd: EBID,
+    ebid: EBID,
     eventName: E['name']
   ) => AsyncGenerator<{ stop: () => void; data: E }, void, unknown>
-  tx: (ebd: EBID) => Promise<EBID>
-  commit: (ebd: EBID) => Promise<EBID>
-  rollback: (ebd: EBID) => Promise<EBID>
+  tx: (ebid: EBID) => Promise<EBID>
+  commit: (ebid: EBID) => Promise<EBID>
+  rollback: (ebid: EBID) => Promise<EBID>
 }
 
 export type EventBus<EBID extends Record<any, any> = any> = {
@@ -109,21 +109,3 @@ export const EventBus = {
   rollback
 }
 
-export type EventBusService = {
-  unsubscribe<E extends Event<any, any, any>>(
-    eventName: E['name'],
-    eventHandler: FullEventHandler<FullEvent<E>>
-  ): Promise<EventBusService>
-  subscribe<E extends Event<any, any, any>>(
-    eventName: E['name'],
-    eventHandler: FullEventHandler<FullEvent<E>>
-  ): Promise<EventBusService>
-  publish(events: readonly FullEvent[]): Promise<void>
-  pull<E extends Event<any, any, any>>(eventName: E['name']): Promise<E>
-  observe<E extends Event<any, any, any>>(
-    eventName: E['name']
-  ): AsyncGenerator<{ stop: () => void; data: E }, void, unknown>
-  tx(): Promise<EventBusService>
-  commit(): Promise<EventBusService>
-  rollback(): Promise<EventBusService>
-}

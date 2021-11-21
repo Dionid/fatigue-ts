@@ -1,4 +1,4 @@
-import { pipe } from 'functional-oriented-programming-ts'
+import { pipe } from '@fop-ts/core'
 import { Knex } from 'knex'
 
 export type Count = string | number | undefined

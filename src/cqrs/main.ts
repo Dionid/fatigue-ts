@@ -1,4 +1,4 @@
-import { Maybe } from 'functional-oriented-programming-ts'
+import { Maybe } from '@fop-ts/core'
 import { v4 } from 'uuid'
 
 export type CommandOrQueryBaseMeta = {

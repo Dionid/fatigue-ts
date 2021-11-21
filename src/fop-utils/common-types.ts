@@ -1,4 +1,4 @@
-import { BrandedPrimitive } from 'functional-oriented-programming-ts'
+import { BrandedPrimitive } from '@fop-ts/core'
 import * as uuid from 'uuid'
 import { v4 } from 'uuid'
 import { ValidationError } from '../errors'

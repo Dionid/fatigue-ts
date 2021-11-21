@@ -1,4 +1,4 @@
-import { Maybe, pipe } from 'functional-oriented-programming-ts'
+import { Maybe, pipe } from '@fop-ts/core'
 import { Knex } from 'knex'
 
 export const limitArgToQuery =
