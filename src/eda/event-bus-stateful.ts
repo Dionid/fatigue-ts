@@ -1,5 +1,5 @@
-import {Event} from "./event";
-import {FullEvent, FullEventHandler} from "./full-event";
+import { Event } from './event'
+import { FullEvent, FullEventHandler } from './full-event'
 
 export type EventBusSF = {
   unsubscribe<E extends Event<any, any, any>>(

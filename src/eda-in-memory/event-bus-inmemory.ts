@@ -1,5 +1,5 @@
-import {Deferred} from '@fop-ts/core'
-import {Event, FullEvent, FullEventHandler} from '../eda'
+import { Deferred } from '@fop-ts/core'
+import { Event, FullEvent, FullEventHandler } from '../eda'
 
 export type EventBusInMemoryPersistor = {
   saveEvent: <E extends FullEvent>(event: E) => Promise<E>
@@ -41,7 +41,7 @@ export const create = (
 export const unsubscribe = async <E extends Event<any, any, any>>(
   ebim: EventBusInMemory,
   eventName: E['name'],
-  eventHandler: FullEventHandler<FullEvent<E>>,
+  eventHandler: FullEventHandler<FullEvent<E>>
 ): Promise<EventBusInMemory> => {
   if (ebim.eventHandlers[eventName]) {
     ebim.eventHandlers[eventName] = ebim.eventHandlers[eventName].filter((c) => c === eventHandler)
@@ -53,7 +53,7 @@ export const unsubscribe = async <E extends Event<any, any, any>>(
 export const subscribe = async <E extends Event<any, any, any>>(
   ebim: EventBusInMemory,
   eventName: E['name'],
-  eventHandler: FullEventHandler<FullEvent<E>>,
+  eventHandler: FullEventHandler<FullEvent<E>>
 ): Promise<EventBusInMemory> => {
   if (ebim.eventHandlers[eventName]) {
     ebim.eventHandlers[eventName].push(eventHandler)
@@ -186,4 +186,3 @@ export const EventBusInMemory = {
   commit,
   rollback
 }
-

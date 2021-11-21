@@ -1,4 +1,4 @@
-import {Event, EventBusSF, FullEvent, FullEventHandler} from "../eda";
+import { Event, EventBusSF, FullEvent, FullEventHandler } from '../eda'
 import {
   commit,
   create,
@@ -11,7 +11,7 @@ import {
   subscribe,
   tx,
   unsubscribe
-} from "./event-bus-inmemory";
+} from './event-bus-inmemory'
 
 // . SF – stateful
 export type EventBusInMemorySF = EventBusSF

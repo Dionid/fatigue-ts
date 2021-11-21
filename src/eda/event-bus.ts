@@ -1,5 +1,5 @@
-import {Event} from './event'
-import {FullEvent, FullEventHandler} from './full-event'
+import { Event } from './event'
+import { FullEvent, FullEventHandler } from './full-event'
 
 export type EventBusImplBehaviour<EBID> = {
   unsubscribe: <E extends Event<any, any, any>>(
@@ -108,4 +108,3 @@ export const EventBus = {
   commit,
   rollback
 }
-
