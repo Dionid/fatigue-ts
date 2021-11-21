@@ -39,7 +39,7 @@ export const Query = {
   }
 }
 
-export const QueryFactory = <Q extends Query<any, any, any>>(type: Q['type']) => {
+export const QueryBehaviorFactory = <Q extends Query<any, any, any>>(type: Q['type']) => {
   return {
     create: (
       data: Q['data'],
@@ -84,7 +84,7 @@ export const Command = {
   }
 }
 
-export const CommandFactory = <Cmd extends Command<any, any>>(type: Cmd['type']) => {
+export const CommandBehaviorFactory = <Cmd extends Command<any, any>>(type: Cmd['type']) => {
   return {
     create: (
       data: Cmd['data'],
@@ -128,7 +128,7 @@ export const Hybrid = {
   }
 }
 
-export const HybridFactory = <H extends Hybrid<any, any, any>>(type: H['type']) => {
+export const HybridBehaviorFactory = <H extends Hybrid<any, any, any>>(type: H['type']) => {
   return {
     create: (
       data: H['data'],

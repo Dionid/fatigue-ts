@@ -58,7 +58,7 @@
     "functional-programming"
   ],
   "dependencies": {
-    "functional-oriented-programming-ts": "^0.0.15",
+    "@fop-ts/core": "^0.0.17",
     "knex": "^0.95.14",
     "uuid": "^8.3.2"
   }

@@ -23,7 +23,7 @@ hit "Watch" or "Star" to get notification.
 
 # Based on
 
-- λ Functional Oriented Programming (https://github.com/Dionid/functional-oriented-programming-ts)
+- λ Functional Oriented Programming (https://github.com/Dionid/fop-ts)
 
 # Used by
 
