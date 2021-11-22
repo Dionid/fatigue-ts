@@ -9,11 +9,11 @@ export type FullEventMeta = {
   createdAt: Date
 }
 
-export type FullEvent<E extends Event<any, any, any> = Event<any, any, any>> = E & {
+export type FullEvent<E extends Event = Event> = E & {
   meta: FullEventMeta
 }
 
-export const ofEvent = <E extends Event<any, any, any>>(props: {
+export const ofEvent = <E extends Event>(props: {
   event: E
   id?: string
   createdAt?: Date
@@ -32,7 +32,7 @@ export const ofEvent = <E extends Event<any, any, any>>(props: {
     }
   }
 }
-export const ofParentEvent = <E extends Event<any, any, any>>(props: {
+export const ofParentEvent = <E extends Event>(props: {
   event: E
   parentEvent: FullEvent
   id?: string
@@ -48,7 +48,7 @@ export const ofParentEvent = <E extends Event<any, any, any>>(props: {
     }
   }
 }
-export const ofCmdOrQuery = <E extends Event<any, any, any>>(props: {
+export const ofCmdOrQuery = <E extends Event>(props: {
   event: E
   meta: { userId: Maybe<string>; transactionId: string }
   id?: string
@@ -69,7 +69,7 @@ export const ofCmdOrQuery = <E extends Event<any, any, any>>(props: {
 
 export const mapEventsFromCmdOrQuery = (
   meta: { userId: Maybe<string>; transactionId: string },
-  events: Array<Event<any, any, any>>
+  events: Event[]
 ) => {
   return events.map((event) => ofCmdOrQuery({ event, meta }))
 }

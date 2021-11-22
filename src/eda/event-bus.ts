@@ -2,19 +2,19 @@ import { Event } from './event'
 import { FullEvent, FullEventHandler } from './full-event'
 
 export type EventBusImplBehaviour<EBID> = {
-  unsubscribe: <E extends Event<any, any, any>>(
+  unsubscribe: <E extends Event>(
     ebid: EBID,
     eventName: E['name'],
     eventHandler: FullEventHandler<FullEvent<E>>
   ) => Promise<EBID>
-  subscribe: <E extends Event<any, any, any>>(
+  subscribe: <E extends Event>(
     ebid: EBID,
     eventName: E['name'],
     eventHandler: FullEventHandler<FullEvent<E>>
   ) => Promise<EBID>
   publish: <E extends readonly FullEvent[]>(ebid: EBID, events: E) => Promise<E>
-  pull: <E extends Event<any, any, any>>(ebid: EBID, eventName: E['name']) => Promise<E>
-  observe: <E extends Event<any, any, any>>(
+  pull: <E extends Event>(ebid: EBID, eventName: E['name']) => Promise<E>
+  observe: <E extends Event>(
     ebid: EBID,
     eventName: E['name']
   ) => AsyncGenerator<{ stop: () => void; data: E }, void, unknown>
@@ -35,7 +35,7 @@ export const create = <EBID>(data: EBID, behaviour: EventBusImplBehaviour<EBID>)
   }
 }
 
-export const subscribe = async <E extends Event<any, any, any>>(
+export const subscribe = async <E extends Event>(
   eb: EventBus,
   eventName: E['name'],
   eventHandler: FullEventHandler<FullEvent<E>>
@@ -46,7 +46,7 @@ export const subscribe = async <E extends Event<any, any, any>>(
   }
 }
 
-export const unsubscribe = async <E extends Event<any, any, any>>(
+export const unsubscribe = async <E extends Event>(
   eb: EventBus,
   eventName: E['name'],
   eventHandler: FullEventHandler<FullEvent<E>>
@@ -65,11 +65,11 @@ export const publish = async (eb: EventBus, events: readonly FullEvent[]): Promi
   }
 }
 
-export const pull = <E extends Event<any, any, any>>(eb: EventBus, eventName: E['name']): Promise<E> => {
+export const pull = <E extends Event>(eb: EventBus, eventName: E['name']): Promise<E> => {
   return eb.behaviour.pull(eb.data, eventName)
 }
 
-export const observe = <E extends Event<any, any, any>>(
+export const observe = <E extends Event>(
   eb: EventBus,
   eventName: E['name']
 ): AsyncGenerator<{ stop: () => void; data: E }, void, unknown> => {

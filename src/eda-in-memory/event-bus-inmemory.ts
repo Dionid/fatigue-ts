@@ -38,7 +38,7 @@ export const create = (
   } as EventBusInMemory
 }
 
-export const unsubscribe = async <E extends Event<any, any, any>>(
+export const unsubscribe = async <E extends Event>(
   ebim: EventBusInMemory,
   eventName: E['name'],
   eventHandler: FullEventHandler<FullEvent<E>>
@@ -50,7 +50,7 @@ export const unsubscribe = async <E extends Event<any, any, any>>(
   return ebim
 }
 
-export const subscribe = async <E extends Event<any, any, any>>(
+export const subscribe = async <E extends Event>(
   ebim: EventBusInMemory,
   eventName: E['name'],
   eventHandler: FullEventHandler<FullEvent<E>>
@@ -134,7 +134,7 @@ export const rollback = async (ebim: EventBusInMemory): Promise<EventBusInMemory
   }
 }
 
-export const pull = async <E extends Event<any, any, any>>(
+export const pull = async <E extends Event>(
   ebim: EventBusInMemory,
   eventName: E['name']
 ): Promise<E> => {
@@ -148,7 +148,7 @@ export const pull = async <E extends Event<any, any, any>>(
   })
 }
 
-export async function* observe<E extends Event<any, any, any>>(
+export async function* observe<E extends Event>(
   ebim: EventBusInMemory,
   eventName: E['name']
 ): AsyncGenerator<{ stop: () => void; data: E }, void, unknown> {

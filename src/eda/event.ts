@@ -1,6 +1,6 @@
 // . FOP version
 
-export type Event<Name extends string, Version extends string, Data extends Record<any, any>> = {
+export type Event<Name extends string = string, Version extends string = string, Data extends Record<any, any> = Record<any, any>> = {
   name: Name
   data: Data
   version: Version
@@ -18,7 +18,7 @@ export const Event = {
       version: eVersion
     }
   },
-  is: <E extends Event<any, any, any>>(event: Event<any, any, any>, name: E['name']): event is E => {
+  is: <E extends Event>(event: Event, name: E['name']): event is E => {
     return event.name === name
   }
 }
@@ -44,11 +44,11 @@ export const Event = {
 // }
 
 export const EventBehaviourFactory = {
-  create: <E extends Event<any, any, any>>(name: E['name'], version: E['version']) => {
+  create: <E extends Event>(name: E['name'], version: E['version']) => {
     return {
       name: () => name,
       create: (data: E['data']) => Event.create(name, version, data),
-      is: (event: Event<any, any, any>): event is E => Event.is<E>(event, name)
+      is: (event: Event): event is E => Event.is<E>(event, name)
     }
   }
 }

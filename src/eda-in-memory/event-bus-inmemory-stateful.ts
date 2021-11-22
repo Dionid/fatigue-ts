@@ -18,17 +18,17 @@ export type EventBusInMemorySF = EventBusSF
 export const EventBusInMemorySF = {
   fromEventBusInmemory: (ebim: EventBusInMemory): EventBusSF => {
     return {
-      unsubscribe: async <E extends Event<any, any, any>>(
+      unsubscribe: async <E extends Event>(
         eventName: E['name'],
         eventHandler: FullEventHandler<FullEvent<E>>
       ) => EventBusInMemorySF.create(await unsubscribe(ebim, eventName, eventHandler)),
-      subscribe: async <E extends Event<any, any, any>>(
+      subscribe: async <E extends Event>(
         eventName: E['name'],
         eventHandler: FullEventHandler<FullEvent<E>>
       ) => EventBusInMemorySF.create(await subscribe(ebim, eventName, eventHandler)),
       publish: async <E extends readonly FullEvent[]>(events: E) => publish<E>(ebim, events),
-      pull: async <E extends Event<any, any, any>>(eventName: E['name']) => pull(ebim, eventName),
-      observe: <E extends Event<any, any, any>>(eventName: E['name']) => observe(ebim, eventName),
+      pull: async <E extends Event>(eventName: E['name']) => pull(ebim, eventName),
+      observe: <E extends Event>(eventName: E['name']) => observe(ebim, eventName),
       tx: async () => EventBusInMemorySF.create(await tx(ebim)),
       commit: async () => EventBusInMemorySF.create(await commit(ebim)),
       rollback: async () => EventBusInMemorySF.create(await rollback(ebim))
