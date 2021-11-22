@@ -67,10 +67,7 @@ export const ofCmdOrQuery = <E extends Event>(props: {
   }
 }
 
-export const mapEventsFromCmdOrQuery = (
-  meta: { userId: Maybe<string>; transactionId: string },
-  events: Event[]
-) => {
+export const mapEventsFromCmdOrQuery = (meta: { userId: Maybe<string>; transactionId: string }, events: Event[]) => {
   return events.map((event) => ofCmdOrQuery({ event, meta }))
 }
 

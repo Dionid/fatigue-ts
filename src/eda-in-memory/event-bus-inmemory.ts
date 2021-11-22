@@ -134,10 +134,7 @@ export const rollback = async (ebim: EventBusInMemory): Promise<EventBusInMemory
   }
 }
 
-export const pull = async <E extends Event>(
-  ebim: EventBusInMemory,
-  eventName: E['name']
-): Promise<E> => {
+export const pull = async <E extends Event>(ebim: EventBusInMemory, eventName: E['name']): Promise<E> => {
   return new Promise((resolve) => {
     const callback: FullEventHandler<FullEvent<E>> = async (event) => {
       resolve(event)

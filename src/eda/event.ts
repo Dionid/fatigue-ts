@@ -1,6 +1,10 @@
 // . FOP version
 
-export type Event<Name extends string = string, Version extends string = string, Data extends Record<any, any> = Record<any, any>> = {
+export type Event<
+  Name extends string = string,
+  Version extends string = string,
+  Data extends Record<any, any> = Record<any, any>
+> = {
   name: Name
   data: Data
   version: Version
