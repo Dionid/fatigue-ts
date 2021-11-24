@@ -1,4 +1,4 @@
-import { Maybe } from '@fop-ts/core'
+import { Maybe } from '@fop-ts/core/types'
 
 export type CommandOrQueryBaseMeta = {
   transactionId: string

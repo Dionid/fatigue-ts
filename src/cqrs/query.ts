@@ -1,4 +1,4 @@
-import {Maybe} from "@fop-ts/core";
+import {Maybe} from "@fop-ts/core/types";
 import {v4} from "uuid";
 import {CommandOrQuery, CommandQueryHandler} from "./common";
 

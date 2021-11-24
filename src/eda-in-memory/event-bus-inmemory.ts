@@ -1,4 +1,4 @@
-import { Deferred } from '@fop-ts/core'
+import { Deferred } from '@fop-ts/core/deferred'
 import {FullEvent, FullEventHandler} from "../eda/full-event";
 
 export type EventBusInMemoryPersistor = {
