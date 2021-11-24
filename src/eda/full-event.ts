@@ -1,4 +1,4 @@
-import { Maybe } from '@fop-ts/core'
+import { Maybe } from '@fop-ts/core/Types'
 import { v4 } from 'uuid'
 import { Event } from './event'
 

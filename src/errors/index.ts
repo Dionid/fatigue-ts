@@ -68,3 +68,9 @@ export const returnOnThrow = async <R>(callback: () => Promise<R>): Promise<R | 
     return e
   }
 }
+
+export const Errors = {
+  throwOnUndefined,
+  throwOnError,
+  returnOnThrow
+}

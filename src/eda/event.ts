@@ -10,21 +10,25 @@ export type Event<
   version: Version
 }
 
-export const Event = {
-  create: <Name extends string, Version extends string, Data extends Record<any, any>>(
-    eName: Name,
-    eVersion: Version,
-    eData: Data
-  ): Event<Name, Version, Data> => {
-    return {
-      name: eName,
-      data: eData,
-      version: eVersion
-    }
-  },
-  is: <E extends Event>(event: Event, name: E['name']): event is E => {
-    return event.name === name
+export const create = <Name extends string, Version extends string, Data extends Record<any, any>>(
+  eName: Name,
+  eVersion: Version,
+  eData: Data
+): Event<Name, Version, Data> => {
+  return {
+    name: eName,
+    data: eData,
+    version: eVersion
   }
+}
+
+export const is = <E extends Event>(event: Event, name: E['name']): event is E => {
+  return event.name === name
+}
+
+export const Event = {
+  create,
+  is
 }
 
 // . Example
@@ -41,27 +45,23 @@ export const Event = {
 
 // . With Event Factory
 
-// export type EventBehaviourFactory<E extends Event<any, any, any>> = {
-//   name: () => E['name']
-//   create: (data: E['data']) => Event<E["name"], E["version"], E["data"]>
-//   is: (e: Event<any, any, any>) => e is E
-// }
-
-export const EventBehaviourFactory = {
-  create: <E extends Event>(name: E['name'], version: E['version']) => {
-    return {
-      name: () => name,
-      create: (data: E['data']) => Event.create(name, version, data),
-      is: (event: Event): event is E => Event.is<E>(event, name)
-    }
-  }
-}
-
 // type SomeEvent = Event<"SomeEvent", "v1", {
 //   foo: string
 // }>
 //
-// const SomeEvent = EventBehaviourFactory.create<SomeEvent>(
+// const SomeEvent = EventBehavior.createCurriedNameVersion<SomeEvent>(
 //   "SomeEvent",
 //   "v1",
 // )
+
+export const createCurriedNameVersion = <E extends Event>(name: E['name'], version: E['version']) => {
+  return {
+    name: () => name,
+    create: (data: E['data']) => create(name, version, data),
+    is: (event: Event): event is E => is<E>(event, name)
+  }
+}
+
+export const EventBehavior = {
+  createCurriedNameVersion
+}
