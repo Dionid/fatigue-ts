@@ -1,6 +1,6 @@
 // . OOP version
 
-class Event<Name extends string, Version extends string> {
+class Event<Name extends string = string, Version extends string = string> {
   public static eventName: () => string
 
   constructor(public name: Name, public version: Version, public data: Record<any, any>) {}
