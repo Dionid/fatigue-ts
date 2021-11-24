@@ -26,6 +26,11 @@ export const is = <E extends Event>(event: Event, name: E['name']): event is E =
   return event.name === name
 }
 
+export const Event = {
+  create,
+  is
+}
+
 // . Example
 
 // type SomeEvent = Event<"SomeEvent", "v1", {
@@ -40,7 +45,16 @@ export const is = <E extends Event>(event: Event, name: E['name']): event is E =
 
 // . With Event Factory
 
-export const createBehavior = <E extends Event>(name: E['name'], version: E['version']) => {
+// type SomeEvent = Event<"SomeEvent", "v1", {
+//   foo: string
+// }>
+//
+// const SomeEvent = EventBehavior.createCurriedNameVersion<SomeEvent>(
+//   "SomeEvent",
+//   "v1",
+// )
+
+export const createCurriedNameVersion = <E extends Event>(name: E['name'], version: E['version']) => {
   return {
     name: () => name,
     create: (data: E['data']) => create(name, version, data),
@@ -48,17 +62,6 @@ export const createBehavior = <E extends Event>(name: E['name'], version: E['ver
   }
 }
 
-// type SomeEvent = Event<"SomeEvent", "v1", {
-//   foo: string
-// }>
-//
-// const SomeEvent = createBehavior.create<SomeEvent>(
-//   "SomeEvent",
-//   "v1",
-// )
-
-export const Event = {
-  create,
-  is,
-  createBehavior
+export const EventBehavior = {
+  createCurriedNameVersion
 }

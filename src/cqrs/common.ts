@@ -1,4 +1,4 @@
-import { Maybe } from '@fop-ts/core/types'
+import { Maybe } from '@fop-ts/core/Types'
 
 export type CommandOrQueryBaseMeta = {
   transactionId: string
@@ -15,5 +15,3 @@ export type CommandOrQuery<Type extends string, Data extends Record<string, any>
 }
 
 export type CommandQueryHandler<CQ extends CommandOrQuery<any, any, R>, R> = (query: CQ) => Promise<R>
-
-

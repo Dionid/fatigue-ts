@@ -1,6 +1,6 @@
-import {Maybe} from "@fop-ts/core/types";
-import {v4} from "uuid";
-import {CommandOrQuery, CommandQueryHandler} from "./common";
+import { Maybe, NonUndefined } from '@fop-ts/core/Types'
+import { v4 } from 'uuid'
+import { CommandOrQuery, CommandQueryHandler } from './common'
 
 export type Hybrid<Type extends string, Data extends Record<string, any>, R> = CommandOrQuery<Type, Data, R>
 
@@ -24,7 +24,16 @@ export const create = <H extends Hybrid<any, any, any>>(props: {
   }
 }
 
-export const createBehavior = <H extends Hybrid<any, any, any>>(type: H['type']) => {
+export const Hybrid = {
+  create
+}
+
+export type HybridHandler<HybridCmd extends Hybrid<any, any, any>> = CommandQueryHandler<
+  HybridCmd,
+  NonUndefined<HybridCmd['_result']>
+>
+
+export const createCurriedType = <H extends Hybrid<any, any, any>>(type: H['type']) => {
   return {
     create: (
       data: H['data'],
@@ -45,15 +54,6 @@ export const createBehavior = <H extends Hybrid<any, any, any>>(type: H['type'])
   }
 }
 
-export const Hybrid = {
-  create,
-  createBehavior,
+export const HybridBehavior = {
+  createCurriedType
 }
-
-// TODO. Move to FOP
-type NonUndefined<T> = Exclude<T, undefined>
-
-export type HybridHandler<HybridCmd extends Hybrid<any, any, any>> = CommandQueryHandler<
-  HybridCmd,
-  NonUndefined<HybridCmd['_result']>
->

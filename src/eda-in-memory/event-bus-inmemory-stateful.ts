@@ -1,5 +1,5 @@
-import {EventBusSF} from "../eda/event-bus-stateful";
-import {FullEvent, FullEventHandler} from "../eda/full-event";
+import { EventBusSF } from '../eda/event-bus-stateful'
+import { FullEvent, FullEventHandler } from '../eda/full-event'
 import {
   commit,
   create,

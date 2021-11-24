@@ -1,5 +1,5 @@
 import { Deferred } from '@fop-ts/core/deferred'
-import {FullEvent, FullEventHandler} from "../eda/full-event";
+import { FullEvent, FullEventHandler } from '../eda/full-event'
 
 export type EventBusInMemoryPersistor = {
   saveEvent: <E extends FullEvent>(event: E) => Promise<E>

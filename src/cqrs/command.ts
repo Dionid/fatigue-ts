@@ -1,7 +1,6 @@
-import {Maybe} from "@fop-ts/core/types";
-import {v4} from "uuid";
-import {CommandOrQuery, CommandQueryHandler} from "./common";
-
+import { Maybe } from '@fop-ts/core/Types'
+import { v4 } from 'uuid'
+import { CommandOrQuery, CommandQueryHandler } from './common'
 
 export type Command<Type extends string, Data extends Record<string, any>> = CommandOrQuery<Type, Data, undefined>
 
@@ -25,7 +24,13 @@ export const create = <Type extends string, Data extends Record<string, any>>(pr
   }
 }
 
-export const createBehavior = <Cmd extends Command<any, any>>(type: Cmd['type']) => {
+export const Command = {
+  create
+}
+
+export type CommandHandler<Cmd extends Command<any, any>> = CommandQueryHandler<Cmd, void>
+
+export const createCurriedType = <Cmd extends Command<any, any>>(type: Cmd['type']) => {
   return {
     create: (
       data: Cmd['data'],
@@ -46,9 +51,6 @@ export const createBehavior = <Cmd extends Command<any, any>>(type: Cmd['type'])
   }
 }
 
-export const Command = {
-  create,
-  createBehavior
+export const CommandBehavior = {
+  createCurriedType
 }
-
-export type CommandHandler<Cmd extends Command<any, any>> = CommandQueryHandler<Cmd, void>
