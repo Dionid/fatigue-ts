@@ -1,10 +1,11 @@
-# 🛌 Fatigue Driven Development (FDD) for Node.js (TypeScript)
+# 🛌 Fatigue Driven Development Framework (FDDF) for Node.js (TypeScript)
 
 Types and functions to create software using FDD:
 
 1. EDA
 1. CQRS
-1. Typed Errors
+1. Distributed Function Architecture
+1. Classified Errors
 1. FOP
 1. Knex and Apollo helpers
 
