@@ -55,7 +55,7 @@ export abstract class BaseError extends Error {
 
 // . Accessibility errors
 export class PublicError extends BaseError {
-  internalMessage: string
+  public internalMessage: string
 
   constructor(publicMessage: string, statusCode: number, type: string, internalMessage?: string) {
     super(publicMessage, statusCode, type)

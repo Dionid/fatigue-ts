@@ -1,58 +1,55 @@
-export type ReactiveCounter = ReturnType<typeof newReactiveCounter>;
+export type ReactiveCounter = ReturnType<typeof newReactiveCounter>
 
-export const newReactiveCounter = (
-  initialValue: number = 0,
-  zeroAndGreater: boolean = true
-) => {
-  let value = initialValue;
-  const subscribers: Array<(newVal: number, oldVal: number) => any> = [];
+export const newReactiveCounter = (initialValue: number = 0, zeroAndGreater: boolean = true) => {
+  let value = initialValue
+  const subscribers: Array<(newVal: number, oldVal: number) => any> = []
 
   const set = (newValue: number) => {
     if (zeroAndGreater && newValue < 0) {
-      return;
+      return
     }
 
-    const oldVal = value;
-    value = newValue;
+    const oldVal = value
+    value = newValue
 
-    for (let i = 0; i < subscribers.length; i++) {
-      subscribers[i]!(newValue, oldVal);
+    for (const sub of subscribers) {
+      sub(newValue, oldVal)
     }
-  };
+  }
 
   const subscribe = (fn: (newVal: number, oldVal: number) => any) => {
-    subscribers.push(fn);
-  };
+    subscribers.push(fn)
+  }
 
   return {
     value: () => value,
     subscribe,
     set,
     add: (addVal: number) => {
-      set(value + addVal);
+      set(value + addVal)
     },
     increment: () => {
-      set(value + 1);
+      set(value + 1)
     },
     decrement: () => {
-      set(value - 1);
+      set(value - 1)
     },
     waitUntil: async (valBecame: number): Promise<true> => {
       if (value === valBecame) {
-        return true;
+        return true
       }
 
       return new Promise((resolve) => {
         subscribe((newVal) => {
           if (newVal === valBecame) {
-            resolve(true);
+            resolve(true)
           }
-        });
-      });
-    },
-  };
-};
+        })
+      })
+    }
+  }
+}
 
 export const ReactiveCounter = {
-  new: newReactiveCounter,
-};
+  new: newReactiveCounter
+}

@@ -44,7 +44,7 @@ export const JSONValue = {
   },
 
   isNumericString: (propName: string, value: JSONValue): string => {
-    if (typeof value != 'string') {
+    if (typeof value !== 'string') {
       throw new ValidationError(`${propName} must be a numeric string`)
     }
 
@@ -81,9 +81,9 @@ export const JSONValue = {
     const record = JSONValue.toRecord(propName, value)
 
     keys.forEach((key) => {
-      const value = record[key]
+      const val = record[key]
 
-      if (typeof value !== 'string') {
+      if (typeof val !== 'string') {
         throw new ValidationError(`${propName} must be record with key with string value`)
       }
     })
