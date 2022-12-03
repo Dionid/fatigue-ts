@@ -1,8 +1,8 @@
 import EventEmitter from 'events'
 
-import { v4 } from 'uuid'
 import { Deferred } from '@fapfop/core/Deferred'
 import { Switch } from '@fapfop/core/Switch'
+import { v4 } from 'uuid'
 
 import { RequestTimeoutError } from '../typed-errors'
 
