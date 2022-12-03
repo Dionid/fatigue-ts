@@ -32,10 +32,13 @@ export const METHOD_NOT_ALLOWED_ERROR = {
   type: 'method_not_allowed',
   message: 'Method not allowed'
 }
-
 export const RESOURSE_NOT_FOUND_ERROR = {
   type: 'recourse_not_found',
   message: 'Resource not found'
+}
+export const REQUEST_TIMEOUT_ERROR = {
+  type: 'request_timeout',
+  message: 'Request timeout'
 }
 
 export const ERRORS = {
@@ -44,7 +47,8 @@ export const ERRORS = {
   PERMISSION_ERROR,
   VALIDATION_ERROR,
   NOT_FOUND_ERROR,
-  RESOURSE_NOT_FOUND_ERROR
+  RESOURSE_NOT_FOUND_ERROR,
+  REQUEST_TIMEOUT_ERROR
 }
 
 export abstract class BaseError extends Error {
@@ -138,5 +142,15 @@ export class MethodNotAllowedError extends PublicError {
     internalMessage?: string
   ) {
     super(message, 405, type, internalMessage)
+  }
+}
+
+export class RequestTimeoutError extends PublicError {
+  constructor(
+    message: string = REQUEST_TIMEOUT_ERROR.message,
+    type: string = REQUEST_TIMEOUT_ERROR.type,
+    internalMessage?: string
+  ) {
+    super(message, 408, type, internalMessage)
   }
 }

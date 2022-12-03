@@ -1,5 +1,5 @@
 {
-  "name": "@fdd-node-ts/core",
+  "name": "@fddf-ts/core",
   "version": "0.0.13",
   "description": "Fatigue Driven Development (FDD) in Typescript",
   "main": "index.js",
@@ -25,7 +25,7 @@
   "author": "David Shekunts <ditreyw@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dionid/fdd-node-ts.git"
+    "url": "git@github.com:Dionid/FDDF.ts.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -44,9 +44,9 @@
     "typescript": "^4.4.4"
   },
   "bugs": {
-    "url": "https://github.com/Dionid/fdd-node-ts/issues"
+    "url": "https://github.com/Dionid/FDDF.ts/issues"
   },
-  "homepage": "https://github.com/Dionid/fdd-node-ts",
+  "homepage": "https://github.com/Dionid/FDDF.ts",
   "tags": [
     "typescript",
     "algebraic-data-types",
@@ -58,7 +58,7 @@
     "functional-programming"
   ],
   "dependencies": {
-    "@fop-ts/core": "^0.0.21",
+    "@fapfop/core": "^0.0.25",
     "knex": "^0.95.14",
     "uuid": "^8.3.2"
   }

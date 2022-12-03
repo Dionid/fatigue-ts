@@ -1,6 +1,6 @@
-export type ReactiveCounter = ReturnType<typeof newReactiveCounter>
+export type ReactiveCounter = ReturnType<typeof ReactiveCounter>
 
-export const newReactiveCounter = (initialValue: number = 0, zeroAndGreater: boolean = true) => {
+export const ReactiveCounter = (initialValue: number = 0, zeroAndGreater: boolean = true) => {
   let value = initialValue
   const subscribers: Array<(newVal: number, oldVal: number) => any> = []
 
@@ -48,8 +48,4 @@ export const newReactiveCounter = (initialValue: number = 0, zeroAndGreater: boo
       })
     }
   }
-}
-
-export const ReactiveCounter = {
-  new: newReactiveCounter
 }

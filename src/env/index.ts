@@ -1,4 +1,4 @@
-import { InternalError } from '../categorized-errors'
+import { InternalError } from '../typed-errors'
 
 export const getEnvOrThrow =
   (log?: (e: Error) => any) =>

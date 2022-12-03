@@ -2,7 +2,6 @@ import { EventBusSF } from '../eda/event-bus-stateful'
 import { FullEvent, FullEventHandler } from '../eda/full-event'
 import {
   commit,
-  create,
   EventBusInMemory,
   EventBusInMemoryPersistor,
   observe,
@@ -39,6 +38,6 @@ export const EventBusInMemorySF = {
     onError?: (e: any) => void
     log?: (...args: any) => void
   }): EventBusSF => {
-    return EventBusInMemorySF.fromEventBusInmemory(create(props))
+    return EventBusInMemorySF.fromEventBusInmemory(EventBusInMemory(props))
   }
 }

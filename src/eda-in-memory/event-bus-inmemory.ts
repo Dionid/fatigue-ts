@@ -1,4 +1,4 @@
-import { Deferred } from '@fop-ts/core/Deferred'
+import { Deferred } from '@fapfop/core/Deferred'
 import { FullEvent, FullEventHandler } from '../eda/full-event'
 
 export type EventBusInMemoryPersistor = {
@@ -14,7 +14,7 @@ export type EventBusInMemory = {
   log?: (...args: any) => void
 }
 
-export const create = (
+export const EventBusInMemory = (
   props: {
     tx?: boolean
     storedEvents?: FullEvent[]
@@ -150,17 +150,17 @@ export async function* observe<E extends Event>(
   eventName: E['name']
 ): AsyncGenerator<{ stop: () => void; data: E }, void, unknown> {
   let stop = false
-  let deff = Deferred.new<E>()
+  let def = Deferred<E>()
 
   const callback: FullEventHandler<E> = async (e) => {
-    deff.resolve(e)
-    deff = Deferred.new()
+    def.resolve(e)
+    def = Deferred()
   }
 
   await subscribe<E>(ebim, eventName, callback)
 
   while (!stop) {
-    const event = await deff.promise
+    const event = await def()
     yield {
       stop: () => {
         unsubscribe(ebim, eventName, callback)
@@ -171,15 +171,25 @@ export async function* observe<E extends Event>(
   }
 }
 
-export type EventBusInMemoryBehaviour = typeof EventBusInMemory
-export const EventBusInMemory = {
-  create,
-  unsubscribe,
-  subscribe,
-  publish,
-  pull,
-  observe,
-  tx,
-  commit,
-  rollback
-}
+EventBusInMemory.unsubscribe = unsubscribe
+EventBusInMemory.subscribe = subscribe
+EventBusInMemory.publish = publish
+EventBusInMemory.pull = pull
+EventBusInMemory.observe = observe
+EventBusInMemory.tx = tx
+EventBusInMemory.commit = commit
+EventBusInMemory.rollback = rollback
+
+export type EventBusInMemoryBehavior = typeof EventBusInMemory
+
+// export const EventBusInMemory = {
+//   create,
+//   unsubscribe,
+//   subscribe,
+//   publish,
+//   pull,
+//   observe,
+//   tx,
+//   commit,
+//   rollback
+// }

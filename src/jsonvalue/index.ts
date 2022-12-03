@@ -1,4 +1,4 @@
-import { ValidationError } from '../categorized-errors'
+import { ValidationError } from '../typed-errors'
 
 export type valueOf<T> = T[keyof T]
 
@@ -16,23 +16,6 @@ export type JSONPrimitive = string | number | boolean | null | undefined
 export type JSONValue = JSONPrimitive | JSONObject | JSONArray
 export type JSONObject = { [member: string]: JSONValue }
 export type JSONArray = JSONValue[]
-
-// export type JSONify<T> = T extends Date
-//   ? number
-//   : T extends null
-//   ? null
-//   : T extends Record<any, any>
-//   ? JSONifyObject<T>
-//   : T extends symbol
-//   ? string
-//   : T;
-
-// export type JSONifyObject<Obj extends Record<any, any>> = Omit<
-//   {
-//     [Key in keyof Obj]: JSONify<Obj[Key]>;
-//   },
-//   typeof BrandedToken
-// >;
 
 export const JSONValue = {
   toRecord: (propName: string, value: JSONValue): Record<string, any> => {
