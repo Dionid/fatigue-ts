@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 
-import { Deferred } from '@fapfop/core/Deferred'
-import { Switch } from '@fapfop/core/Switch'
+import { Deferred } from '@fapfop/core/deferred'
+import { Switch } from '@fapfop/core/switch'
 import { v4 } from 'uuid'
 
 import { RequestTimeoutError } from '../typed-errors'
@@ -15,7 +15,7 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
   const { timeout = 0 } = options
   let state: 'processing' | 'waiting' = 'waiting'
   const pendingQueue: Array<LQJob<Args>> = []
-  const doneEmmiter: EventEmitter = new EventEmitter()
+  const doneEmitter: EventEmitter = new EventEmitter()
 
   const startProcessing = async (): Promise<void> => {
     state = 'processing'
@@ -30,12 +30,12 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
 
     try {
       const result = await fn(...job.args)
-      doneEmmiter.emit(`${job.id}`, {
+      doneEmitter.emit(`${job.id}`, {
         $case: 'success',
         result
       })
     } catch (err) {
-      doneEmmiter.emit(`${job.id}`, {
+      doneEmitter.emit(`${job.id}`, {
         $case: 'failure',
         result: err
       })
@@ -55,17 +55,17 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
     pendingQueue.unshift(job)
 
     const response = Deferred<Result>()
-    let timoutId: ReturnType<typeof setTimeout>
+    let timeoutId: ReturnType<typeof setTimeout>
 
     if (timeout) {
-      timoutId = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         response.reject(new RequestTimeoutError())
       }, timeout).unref()
     }
 
-    doneEmmiter.on(`${job.id}`, (data: { $case: 'success' | 'failure'; result: any }) => {
-      if (timoutId) {
-        clearTimeout(timoutId)
+    doneEmitter.on(`${job.id}`, (data: { $case: 'success' | 'failure'; result: any }) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
       }
 
       switch (data.$case) {
@@ -79,7 +79,7 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
           return Switch.safeGuard(data.$case)
       }
 
-      doneEmmiter.removeAllListeners(`${job.id}`)
+      doneEmitter.removeAllListeners(`${job.id}`)
 
       return
     })
