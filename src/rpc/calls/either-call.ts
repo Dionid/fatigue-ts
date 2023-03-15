@@ -40,6 +40,7 @@ type CustomEitherCall<
   ) => CallResponse<{ $case: 'failure'; failure: Failure }, Meta>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const CustomEitherCall = <
   Name extends string,
   Meta extends Record<any, any>,
@@ -97,34 +98,34 @@ export const CustomEitherCall = <
 
 // USAGE
 
-type ExampleCustomEitherCallMeta = {
-  traceId: string
-  ts: number
-  sub?: string
-  sid?: string
-}
+// type ExampleCustomEitherCallMeta = {
+//   traceId: string
+//   ts: number
+//   sub?: string
+//   sid?: string
+// }
 
-type ExampleCustomEitherCall<
-  Name extends string,
-  RequestParams extends Record<any, any>,
-  Success extends Record<any, any>,
-  Failure extends CustomEitherCallResultFailureDefault = CustomEitherCallResultFailureDefault
-> = CustomEitherCall<Name, ExampleCustomEitherCallMeta, RequestParams, Success, Failure>
+// type ExampleCustomEitherCall<
+//   Name extends string,
+//   RequestParams extends Record<any, any>,
+//   Success extends Record<any, any>,
+//   Failure extends CustomEitherCallResultFailureDefault = CustomEitherCallResultFailureDefault
+// > = CustomEitherCall<Name, ExampleCustomEitherCallMeta, RequestParams, Success, Failure>
 
-export const ExampleCustomEitherCall = <
-  Name extends string,
-  Params extends Record<any, any>,
-  Success extends Record<any, any>,
-  Failure extends CustomEitherCallResultFailureDefault = CustomEitherCallResultFailureDefault
->(
-  name: Name
-) => {
-  return CustomEitherCall<Name, ExampleCustomEitherCallMeta, Params, Success, Failure>(name, (meta) => {
-    return {
-      traceId: meta?.traceId ?? v4(),
-      ts: meta?.ts ?? Date.now(),
-      sub: meta?.sub,
-      sid: meta?.sid
-    }
-  })
-}
+// export const ExampleCustomEitherCall = <
+//   Name extends string,
+//   Params extends Record<any, any>,
+//   Success extends Record<any, any>,
+//   Failure extends CustomEitherCallResultFailureDefault = CustomEitherCallResultFailureDefault
+// >(
+//   name: Name
+// ) => {
+//   return CustomEitherCall<Name, ExampleCustomEitherCallMeta, Params, Success, Failure>(name, (meta) => {
+//     return {
+//       traceId: meta?.traceId ?? v4(),
+//       ts: meta?.ts ?? Date.now(),
+//       sub: meta?.sub,
+//       sid: meta?.sid
+//     }
+//   })
+// }

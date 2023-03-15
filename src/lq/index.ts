@@ -11,7 +11,10 @@ export type LQJob<A> = {
   args: A
 }
 
-export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, options: { timeout?: number } = {}) => {
+export const LQ = <Args extends any[], Result>(
+  fn: (...args: Args) => Promise<Result>,
+  options: { timeout?: number } = {}
+) => {
   const { timeout = 0 } = options
   let state: 'processing' | 'waiting' = 'waiting'
   const pendingQueue: Array<LQJob<Args>> = []
@@ -37,11 +40,13 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
     } catch (err) {
       doneEmitter.emit(`${job.id}`, {
         $case: 'failure',
-        result: err
+        result: err as never
       })
     }
 
-    startProcessing()
+    startProcessing().catch((err) => {
+      throw err
+    })
 
     return
   }
@@ -63,20 +68,23 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
       }, timeout).unref()
     }
 
-    doneEmitter.on(`${job.id}`, (data: { $case: 'success' | 'failure'; result: any }) => {
+    doneEmitter.on(`${job.id}`, (data: { $case: 'success'; result: Result } | { $case: 'failure'; result: Error }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
 
-      switch (data.$case) {
+      const { $case, result } = data
+
+      switch ($case) {
         case 'success':
-          response.resolve(data.result)
+          response.resolve(result)
           break
         case 'failure':
-          response.reject(data.result)
+          response.reject(result)
           break
         default:
-          return Switch.safeGuard(data.$case)
+          return Switch.safeGuard($case)
       }
 
       doneEmitter.removeAllListeners(`${job.id}`)
@@ -85,7 +93,9 @@ export const LQ = <Args extends any[], Result>(fn: (...args: Args) => Result, op
     })
 
     if (state === 'waiting') {
-      startProcessing()
+      startProcessing().catch((err) => {
+        throw err
+      })
     }
 
     return response()

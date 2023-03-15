@@ -22,6 +22,7 @@ export const bindEventBusToEvents = <ER extends EventsRecord>(
     }
 
     return acc
+    // eslint-disable-next-line @typescript-eslint/prefer-reduce-type-parameter
   }, {} as EventsToPublish<ER>)
 }
 

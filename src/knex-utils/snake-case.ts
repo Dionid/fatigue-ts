@@ -2,10 +2,10 @@
 type Mapper = (str: string) => string
 
 // Super fast memoize for single argument functions.
-function memoize(func: any): (input: any) => string {
-  const cache = new Map()
+function memoize(func: (arg: string) => string): (input: string) => string {
+  const cache = new Map<string, string>()
 
-  return (input: any) => {
+  return (input: string): string => {
     let output = cache.get(input)
 
     if (output === undefined) {
@@ -23,7 +23,7 @@ function isDigit(char: string): boolean {
 
 function isAllUpperCaseSnakeCase(str: string): boolean {
   for (let i = 1, l = str.length; i < l; ++i) {
-    const char = str[i]
+    const char = str[i]!
 
     if (char !== '_' && char !== char.toUpperCase()) {
       return false
@@ -47,16 +47,16 @@ function snakeCase(
   const upper = str.toUpperCase()
   const lower = str.toLowerCase()
 
-  let out = lower[0]
+  let out = lower[0]!
 
   for (let i = 1, l = str.length; i < l; ++i) {
-    const char = str[i]
-    const prevChar = str[i - 1]
+    const char = str[i]!
+    const prevChar = str[i - 1]!
 
     const upperChar = upper[i]
     const prevUpperChar = upper[i - 1]
 
-    const lowerChar = lower[i]
+    const lowerChar = lower[i]!
     const prevLowerChar = lower[i - 1]
 
     // If underScoreBeforeDigits is true then, well, insert an underscore
@@ -101,15 +101,15 @@ function camelCase(str: string, { upperCase = false } = {}): string {
 
   if (upperCase && isAllUpperCaseSnakeCase(str)) {
     // Only convert to lower case if the string is all upper
-    // case snake_case. This allowes camelCase strings to go
+    // case snake_case. This allows camelCase strings to go
     // through without changing.
     str = str.toLowerCase()
   }
 
-  let out = str[0]
+  let out = str[0]!
 
   for (let i = 1, l = str.length; i < l; ++i) {
-    const char = str[i]
+    const char = str[i]!
     const prevChar = str[i - 1]
 
     if (char !== '_') {
@@ -138,18 +138,18 @@ function mapLastPart(mapper: Mapper, separator: string): (str: string) => string
 
 // Returns a function that takes an object as an input and maps the object's keys
 // using `mapper`. If the input is not an object, the input is returned unchanged.
-function keyMapper(mapper: Mapper): (obj: Record<string, any>) => Record<string, any> {
-  return (obj: Record<string, any>): Record<string, any> => {
+function keyMapper(mapper: Mapper): (obj: Record<string, object>) => Record<string, object> | null {
+  return (obj: Record<string, object> | null): Record<string, object> | null => {
     if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
       return obj
     }
 
     const keys = Object.keys(obj)
-    const out: Record<string, any> = {}
+    const out: Record<string, object> = {}
 
     for (let i = 0, l = keys.length; i < l; ++i) {
-      const key = keys[i]
-      out[mapper(key)] = obj[key]
+      const key = keys[i]!
+      out[mapper(key)] = obj[key]!
     }
 
     return out
@@ -174,18 +174,19 @@ function knexIdentifierMappers({
       return origWrap(formatId(identifier))
     },
 
-    postProcessResponse(result: any): any {
+    postProcessResponse(result: Record<string, any> | Record<string, any>[]): any {
       if (Array.isArray(result)) {
-        const output = new Array(result.length)
+        const output = new Array(result.length) as (Record<string, any> | null)[]
 
         for (let i = 0, l = result.length; i < l; ++i) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           output[i] = parseKeys(result[i])
         }
 
         return output
-      } else {
-        return parseKeys(result)
       }
+
+      return parseKeys(result)
     }
   }
 }

@@ -63,7 +63,7 @@ export class PublicError extends BaseError {
 
   constructor(publicMessage: string, statusCode: number, type: string, internalMessage?: string) {
     super(publicMessage, statusCode, type)
-    this.internalMessage = internalMessage || publicMessage
+    this.internalMessage = internalMessage ?? publicMessage
   }
 }
 export class InternalError extends BaseError {
@@ -73,7 +73,7 @@ export class InternalError extends BaseError {
 }
 
 export class ArrayReturnedUndefinedError extends BaseError {
-  constructor(message: string = 'Array has undefined', type: string = INTERNAL_ERROR.type) {
+  constructor(message = 'Array has undefined', type: string = INTERNAL_ERROR.type) {
     super(message, 500, type)
   }
 }
