@@ -6,3 +6,4 @@ dev
 .idea
 coverage
 docs/examples
+junit_unit.xml
