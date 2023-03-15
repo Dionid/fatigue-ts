@@ -15,14 +15,11 @@ More on Fatigue Driven Development (FDD) you can find here:
 
 🇷🇺 https://fdd.davidshekunts.ru
 
-# ATTENTION
+# Install
 
-Right now this library in PRE-ALPHA MODE, so it's better for you just to 
-download it as zip ("Code" -> "Download ZIP") and use files, located in
-`src` folder.
-
-When library will be stabilized I'll announce it in this repo, so you can
-hit "Watch" or "Star" to get notification.
+```
+npm i @fddf-ts/core
+```
 
 # Based on
 
@@ -36,7 +33,7 @@ hit "Watch" or "Star" to get notification.
 
 All news and announcements you can find in:
 
-🇷🇺 🦾 IT-Качалка Давида Шекунца 💪 – https://t.me/it_kachalka
+🦾 IT-Качалка Давида Шекунца 💪 – https://t.me/it_kachalka
 
 # Roadmap
 
