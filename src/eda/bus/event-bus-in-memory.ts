@@ -1,4 +1,4 @@
-import { EventHandler, Event, EventMessage, MessageFromEvent, EventHandlerRun, EventsRecord } from '../events'
+import { EventHandler, Event, EventMessage, MessageFromEvent, EventHandlerRun, EventsRecord } from '../event'
 import { EventSubscriberNotFoundError } from './errors'
 import { bindEventBusToEvents, EventBus, EventsToPublish } from './event-bus'
 import { Logger } from './logger'

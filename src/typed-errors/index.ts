@@ -32,7 +32,7 @@ export const METHOD_NOT_ALLOWED_ERROR = {
   type: 'method_not_allowed',
   message: 'Method not allowed'
 }
-export const RESOURSE_NOT_FOUND_ERROR = {
+export const RESOURCE_NOT_FOUND_ERROR = {
   type: 'recourse_not_found',
   message: 'Resource not found'
 }
@@ -47,7 +47,7 @@ export const ERRORS = {
   PERMISSION_ERROR,
   VALIDATION_ERROR,
   NOT_FOUND_ERROR,
-  RESOURSE_NOT_FOUND_ERROR,
+  RESOURCE_NOT_FOUND_ERROR,
   REQUEST_TIMEOUT_ERROR
 }
 

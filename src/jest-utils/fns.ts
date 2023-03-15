@@ -1,7 +1,7 @@
 import { MaybeMocked } from 'ts-jest/dist/utils/testing'
 
-export const clearMockedBehaviourRecord = (behaviour: MaybeMocked<Record<string, (...args: any[]) => any>>) => {
-  Object.values(behaviour).forEach((fn) => {
+export const clearMockedBehaviorRecord = (behavior: MaybeMocked<Record<string, (...args: any[]) => any>>) => {
+  Object.values(behavior).forEach((fn) => {
     fn.mockClear()
   })
 }

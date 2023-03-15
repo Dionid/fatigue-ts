@@ -11,8 +11,13 @@
     "Шекунца",
     "Shekunts",
     "Kachalka",
-    "MMDDH",
-    "HHMM"
+    "FDDF",
+    "CQRS",
+    "schemaname",
+    "tablename",
+    "pino",
+    "JSONify",
+    "Roadmap"
   ],
   "flagWords": [],
   "ignorePaths": ["package.json", "package-lock.json", "tsconfig.json", "node_modules/**"]

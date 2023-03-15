@@ -1,4 +1,4 @@
-import { Event, EventsRecord, MessageFromEvent } from '../events'
+import { Event, EventsRecord, MessageFromEvent } from '../event'
 
 export type PublishEvent<E extends Event<any, any>> = (event: MessageFromEvent<E>) => Promise<void>
 
