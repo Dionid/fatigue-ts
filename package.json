@@ -15,11 +15,23 @@
     "lint:check": "eslint --max-warnings 0 --format stylish \"src/**/*.ts{,x}\"",
     "lint:fix": "eslint --fix --max-warnings 0 --format stylish \"src/**/*.ts{,x}\"",
     "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts}\"",
-    "test:unit": "jest --config jest.config.unit.json",
+    "test:unit": "jest --config jest.config.unit.json --passWithNoTests",
     "test": "npm run test:unit",
     "format:check": "prettier --check \"src/**/*.ts\"",
     "format:fix": "prettier --write \"src/**/*.ts\"",
     "publish": "np"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "npm run spell:check",
+      "npm run lint:fix",
+      "npm run format:fix",
+      "git add"
+    ],
+    "**/*.{js,yml,yaml,json,md}": [
+      "npm run format:fix",
+      "git add"
+    ]
   },
   "author": "David Shekunts <ditreyw@gmail.com>",
   "repository": {
@@ -37,7 +49,6 @@
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.7",
-
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "cspell": "^6.26.3",
