@@ -56,5 +56,7 @@ export const Call = <
 
 // # UTILS
 
+export type CallsRecord = Record<string, Call<string, any, any, any>>
+
 export type RequestFromCall<C extends Call<any, any, any, any>> = ReturnType<C['request']>
 export type ResponseFromCall<C extends Call<any, any, any, any>> = ReturnType<C['response']>
