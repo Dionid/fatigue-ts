@@ -17,7 +17,7 @@ export type JSONValue = JSONPrimitive | JSONObject | JSONArray
 export type JSONObject = { [member: string]: JSONValue }
 export type JSONArray = JSONValue[]
 
-export const JSONValue = {
+export const TypedJSON = {
   toRecord: (propName: string, value: JSONValue): Record<string, any> => {
     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
       throw new ValidationError(`${propName} must be record`)
@@ -50,7 +50,7 @@ export const JSONValue = {
     }
 
     const array = value.map((item) => {
-      return JSONValue.toRecordWithCertainKeysWithStringValues(propName, item, keys)
+      return TypedJSON.toRecordWithCertainKeysWithStringValues(propName, item, keys)
     })
 
     return array
@@ -61,7 +61,7 @@ export const JSONValue = {
     value: JSONValue,
     keys: T[]
   ): Record<T, string> => {
-    const record = JSONValue.toRecord(propName, value)
+    const record = TypedJSON.toRecord(propName, value)
 
     keys.forEach((key) => {
       const val = record[key]
@@ -80,7 +80,7 @@ export const JSONValue = {
     keys: T[],
     values: K[]
   ): Record<T, K> => {
-    const record = JSONValue.toRecord(propName, data)
+    const record = TypedJSON.toRecord(propName, data)
 
     keys.forEach((key) => {
       const valueToCheck = record[key]
@@ -131,7 +131,7 @@ export const JSONValue = {
     return value
   },
   toNotEmptyString: (propName: string, value: JSONValue): string => {
-    value = JSONValue.toString(propName, value)
+    value = TypedJSON.toString(propName, value)
 
     if (value.length === 0) {
       throw new ValidationError(`${propName} must be not empty string`)
@@ -182,10 +182,10 @@ export const JSONValue = {
     return value
   },
   toArrayOfJSONObjects: (propName: string, value: JSONValue): JSONObject[] => {
-    const array = JSONValue.toArray(propName, value)
+    const array = TypedJSON.toArray(propName, value)
 
     return array.map((item) => {
-      return JSONValue.toJSONObject(propName, item)
+      return TypedJSON.toJSONObject(propName, item)
     })
   },
   toFloat: (propName: string, value: JSONValue): number => {
@@ -200,10 +200,10 @@ export const JSONValue = {
     }
   },
   toFloatOrUndefined: (propName: string, value: JSONValue): number | undefined => {
-    return value === undefined ? value : JSONValue.toFloat(propName, value)
+    return value === undefined ? value : TypedJSON.toFloat(propName, value)
   },
   toFloatOrUndefinedOrNull: (propName: string, value: JSONValue): number | undefined | null => {
-    return value === null ? value : JSONValue.toFloatOrUndefined(propName, value)
+    return value === null ? value : TypedJSON.toFloatOrUndefined(propName, value)
   },
   toDate: (propName: string, value: JSONValue): Date => {
     if (!value || typeof value === 'boolean' || typeof value === 'object') {
@@ -213,10 +213,10 @@ export const JSONValue = {
     return new Date(value)
   },
   toDateOrUndefined: (propName: string, value: JSONValue): Date | undefined => {
-    return value === undefined ? value : JSONValue.toDate(propName, value)
+    return value === undefined ? value : TypedJSON.toDate(propName, value)
   },
   toDateOrUndefinedOrNull: (propName: string, value: JSONValue): Date | null | undefined => {
-    return value === null ? value : JSONValue.toDateOrUndefined(propName, value)
+    return value === null ? value : TypedJSON.toDateOrUndefined(propName, value)
   },
   toJSONObject: (propName: string, value: JSONValue): JSONObject => {
     if (typeof value !== 'object' || Array.isArray(value) || value === null) {
@@ -226,7 +226,7 @@ export const JSONValue = {
     return value
   },
   toJSONObjectOrUndefined: (propName: string, value: JSONValue): JSONObject | undefined => {
-    return value === undefined ? value : JSONValue.toJSONObject(propName, value)
+    return value === undefined ? value : TypedJSON.toJSONObject(propName, value)
   },
   toBoolean: (propName: string, value: JSONValue): boolean => {
     if (typeof value !== 'boolean') {

@@ -1,2 +1,4 @@
 export * from './fns'
-export * from './snakecase'
+export * from './snake-case'
+export * from './db-template'
+export * from './cleaner'

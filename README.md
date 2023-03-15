@@ -4,10 +4,12 @@ Types and functions to create software using FDD:
 
 1. EDA
 1. CQRS
-1. Distributed Function Architecture
-1. Classified Errors
+1. RPC
 1. FOP
-1. Knex and Apollo helpers
+1. Knex helpers
+1. Jest utils (for Unit and Integration testing)
+1. Typed Errors
+1. Typed JSON
 
 More on Fatigue Driven Development (FDD) you can find here:
 
@@ -35,6 +37,13 @@ hit "Watch" or "Star" to get notification.
 All news and announcements you can find in:
 
 🇷🇺 🦾 IT-Качалка Давида Шекунца 💪 – https://t.me/it_kachalka
+
+# Roadmap
+
+1. RPC Call validation
+1. EDA
+1. Add lerna and separate every library
+1. Add Node.js 12+ support
 
 # License
 
