@@ -3,10 +3,11 @@
 Types and functions to create software using FDD:
 
 1. EDA
+1. CQRS
 1. RPC
 1. FOP
 1. Knex helpers
-1. Jest utils
+1. Jest utils (for Unit and Integration testing)
 1. Typed Errors
 1. Typed JSON
 
@@ -39,8 +40,7 @@ All news and announcements you can find in:
 
 # Roadmap
 
-1. Success / Failure
-1. RPC
+1. RPC Call validation
 1. EDA
 1. Add lerna and separate every library
 1. Add Node.js 12+ support
