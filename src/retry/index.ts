@@ -1,5 +1,5 @@
-import { InternalError } from '../typed-errors'
 import { Sleep } from '@fapfop/core/sleep'
+import { InternalError } from '../typed-errors'
 
 export class TooManyRetries extends InternalError {
   constructor(public retryError: any) {
@@ -14,12 +14,12 @@ export type RetryOptions = {
   timeoutBetweenCalls?: number
 }
 
-export const run = async <R>(fn: () => R, options: RetryOptions = {}): Promise<R> => {
+export const run = async <R>(fn: () => Promise<R>, options: RetryOptions = {}): Promise<R> => {
   const { total = 5, current = 0, errorLog, timeoutBetweenCalls } = options
 
   try {
     if (current > 0) {
-      await Sleep.run((timeoutBetweenCalls || 1000) * current)
+      await Sleep.run((timeoutBetweenCalls ?? 1000) * current)
     }
 
     return await fn()
@@ -40,7 +40,7 @@ export const run = async <R>(fn: () => R, options: RetryOptions = {}): Promise<R
 }
 
 export const onErrorWrapper =
-  <Args extends any[], Result>(fn: (...args: Args) => Result, options: RetryOptions = {}) =>
+  <Args extends any[], Result>(fn: (...args: Args) => Promise<Result>, options: RetryOptions = {}) =>
   (...args: Args): Promise<Result> => {
     return run(() => {
       return fn(...args)

@@ -16,7 +16,7 @@ export const selectQuery = <Q extends Knex.QueryBuilder>(q: Q): Q => {
 }
 
 export const mapCount = (result: Array<{ count?: Count }>) => {
-  return result[0].count
+  return result[0]!.count
 }
 
 export const mapCountToNumber = pipe(mapCount, countToNumber)

@@ -1,24 +1,33 @@
+import { Unbrand } from '@fapfop/core/branded/types'
 import { ValidationError } from '../typed-errors'
 
 export type valueOf<T> = T[keyof T]
 
 export type Override<T1, T2> = Omit<T1, keyof T2> & T2
 
-export type OptionalRecord<K extends keyof any, T> = {
-  [P in K]?: T
-}
-
-export type OptionalEntity<T extends Record<any, any>> = {
-  [P in keyof T]?: T[P]
-}
-
 export type JSONPrimitive = string | number | boolean | null | undefined
-export type JSONValue = JSONPrimitive | JSONObject | JSONArray
-export type JSONObject = { [member: string]: JSONValue }
+export type JSONValue = JSONPrimitive | { [x: string]: JSONValue } | JSONValue[]
+export type JSONObject = Record<string, JSONValue>
 export type JSONArray = JSONValue[]
 
-export const TypedJSON = {
-  toRecord: (propName: string, value: JSONValue): Record<string, any> => {
+export type JSONify<T> = T extends Date
+  ? number
+  : T extends null
+  ? null
+  : T extends Record<string, unknown>
+  ? JSONifyObject<T>
+  : T extends boolean
+  ? boolean
+  : T extends symbol
+  ? string
+  : Unbrand<T>
+
+export type JSONifyObject<Obj extends Record<string, unknown>> = {
+  [Key in keyof Obj]: JSONify<Obj[Key]>
+}
+
+export const JSONValue = {
+  toRecord: (propName: string, value: JSONValue): Record<string, JSONValue> => {
     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
       throw new ValidationError(`${propName} must be record`)
     }
@@ -27,7 +36,7 @@ export const TypedJSON = {
   },
 
   isNumericString: (propName: string, value: JSONValue): string => {
-    if (typeof value !== 'string') {
+    if (typeof value != 'string') {
       throw new ValidationError(`${propName} must be a numeric string`)
     }
 
@@ -44,16 +53,14 @@ export const TypedJSON = {
     propName: string,
     value: JSONValue,
     keys: T[]
-  ): Array<Record<T, string>> => {
+  ): Record<T, string>[] => {
     if (!Array.isArray(value)) {
       throw new ValidationError(`${propName} must be an array`)
     }
 
-    const array = value.map((item) => {
-      return TypedJSON.toRecordWithCertainKeysWithStringValues(propName, item, keys)
+    return value.map((item) => {
+      return JSONValue.toRecordWithCertainKeysWithStringValues(propName, item, keys)
     })
-
-    return array
   },
 
   toRecordWithCertainKeysWithStringValues: <T extends string>(
@@ -61,17 +68,17 @@ export const TypedJSON = {
     value: JSONValue,
     keys: T[]
   ): Record<T, string> => {
-    const record = TypedJSON.toRecord(propName, value)
+    const record = JSONValue.toRecord(propName, value)
 
     keys.forEach((key) => {
-      const val = record[key]
+      const value = record[key]
 
-      if (typeof val !== 'string') {
+      if (typeof value !== 'string') {
         throw new ValidationError(`${propName} must be record with key with string value`)
       }
     })
 
-    return record
+    return record as Record<T, string>
   },
 
   toRecordWithCertainKeysWithCertainStringValues: <T extends string, K extends string>(
@@ -80,7 +87,7 @@ export const TypedJSON = {
     keys: T[],
     values: K[]
   ): Record<T, K> => {
-    const record = TypedJSON.toRecord(propName, data)
+    const record = JSONValue.toRecord(propName, data)
 
     keys.forEach((key) => {
       const valueToCheck = record[key]
@@ -96,7 +103,7 @@ export const TypedJSON = {
       }
     })
 
-    return record
+    return record as Record<T, K>
   },
 
   toUndefined: (propName: string, value: JSONValue): undefined => {
@@ -131,7 +138,7 @@ export const TypedJSON = {
     return value
   },
   toNotEmptyString: (propName: string, value: JSONValue): string => {
-    value = TypedJSON.toString(propName, value)
+    value = JSONValue.toString(propName, value)
 
     if (value.length === 0) {
       throw new ValidationError(`${propName} must be not empty string`)
@@ -182,10 +189,10 @@ export const TypedJSON = {
     return value
   },
   toArrayOfJSONObjects: (propName: string, value: JSONValue): JSONObject[] => {
-    const array = TypedJSON.toArray(propName, value)
+    const array = JSONValue.toArray(propName, value)
 
     return array.map((item) => {
-      return TypedJSON.toJSONObject(propName, item)
+      return JSONValue.toJSONObject(propName, item)
     })
   },
   toFloat: (propName: string, value: JSONValue): number => {
@@ -200,10 +207,10 @@ export const TypedJSON = {
     }
   },
   toFloatOrUndefined: (propName: string, value: JSONValue): number | undefined => {
-    return value === undefined ? value : TypedJSON.toFloat(propName, value)
+    return value === undefined ? value : JSONValue.toFloat(propName, value)
   },
   toFloatOrUndefinedOrNull: (propName: string, value: JSONValue): number | undefined | null => {
-    return value === null ? value : TypedJSON.toFloatOrUndefined(propName, value)
+    return value === null ? value : JSONValue.toFloatOrUndefined(propName, value)
   },
   toDate: (propName: string, value: JSONValue): Date => {
     if (!value || typeof value === 'boolean' || typeof value === 'object') {
@@ -213,20 +220,20 @@ export const TypedJSON = {
     return new Date(value)
   },
   toDateOrUndefined: (propName: string, value: JSONValue): Date | undefined => {
-    return value === undefined ? value : TypedJSON.toDate(propName, value)
+    return value === undefined ? value : JSONValue.toDate(propName, value)
   },
   toDateOrUndefinedOrNull: (propName: string, value: JSONValue): Date | null | undefined => {
-    return value === null ? value : TypedJSON.toDateOrUndefined(propName, value)
+    return value === null ? value : JSONValue.toDateOrUndefined(propName, value)
   },
   toJSONObject: (propName: string, value: JSONValue): JSONObject => {
     if (typeof value !== 'object' || Array.isArray(value) || value === null) {
-      throw new ValidationError(`${propName} must be JSON object`)
+      throw new ValidationError(`${propName} item must be JSON object`)
     }
 
     return value
   },
   toJSONObjectOrUndefined: (propName: string, value: JSONValue): JSONObject | undefined => {
-    return value === undefined ? value : TypedJSON.toJSONObject(propName, value)
+    return value === undefined ? value : JSONValue.toJSONObject(propName, value)
   },
   toBoolean: (propName: string, value: JSONValue): boolean => {
     if (typeof value !== 'boolean') {
@@ -237,20 +244,22 @@ export const TypedJSON = {
   }
 }
 
-export const TypeCheker = {
-  isNumeric(value: any): value is number {
+export const TypeChecker = {
+  isNumeric(value: unknown): value is number {
     if (value instanceof Number) {
       value = value.valueOf()
-    } // Если это объект числа, то берём значение, которое и будет числом
+    } // If this is a number object, then we take the value, which will be the number
 
-    return !isNaN(parseFloat(value)) && isFinite(value)
+    const parsedNumber = parseFloat(String(value))
+    return !isNaN(parsedNumber) && isFinite(parsedNumber)
   },
-  isBoolean(data: any): data is boolean {
-    // let number = parseInt(data);
-    if (data === 0 || data === 1 || data === '1' || data === '0' || data === true || data === false) {
-      return true
-    } else {
-      return false
-    }
+  isBoolean(data: unknown): data is boolean {
+    return data === 0 || data === 1 || data === '1' || data === '0' || data === true || data === false
   }
+}
+
+export type ValidateJSONObject = (propName: string, val: JSONValue) => Promise<JSONValue> | JSONValue
+
+export type JSONObjectValidator<ReqParams extends JSONObject> = {
+  [K in keyof ReqParams]: ReqParams[K] extends JSONObject ? JSONObjectValidator<ReqParams[K]> : ValidateJSONObject
 }

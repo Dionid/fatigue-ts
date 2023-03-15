@@ -40,8 +40,7 @@ All news and announcements you can find in:
 
 # Roadmap
 
-1. RPC Call validation
-1. EDA
+1. Event & Call validation
 1. Add lerna and separate every library
 1. Add Node.js 12+ support
 
