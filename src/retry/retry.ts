@@ -45,3 +45,8 @@ export const onErrorWrapper =
       return fn(...args)
     }, options)
   }
+
+export const Retry = {
+  onError,
+  onErrorWrapper
+}
