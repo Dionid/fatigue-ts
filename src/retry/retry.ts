@@ -47,6 +47,8 @@ export const onErrorWrapper =
   }
 
 export const Retry = {
+  linearTimeoutBetweenCalls,
+  exponentialTimeoutBetweenCalls,
   onError,
   onErrorWrapper
 }
