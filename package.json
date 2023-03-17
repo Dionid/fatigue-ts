@@ -1,6 +1,6 @@
 {
   "name": "@fddf-ts/core",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Fatigue Driven Development (FDD) in Typescript",
   "main": "index.js",
   "module": "es/index.js",
