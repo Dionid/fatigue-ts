@@ -13,7 +13,7 @@ Types and functions to create software using FDD:
 
 More on Fatigue Driven Development (FDD) you can find here:
 
-🇷🇺 https://fdd.davidshekunts.ru
+https://fdd.davidshekunts.ru
 
 # Install
 
@@ -37,8 +37,8 @@ All news and announcements you can find in:
 
 # Roadmap
 
-1. Event & Call validation
 1. Add lerna and separate every library
+1. Add tests
 1. Add Node.js 12+ support
 
 # License

@@ -1,4 +1,4 @@
-import { Unbrand } from '@fapfop/core/branded/types'
+import { Unbrand } from '@fapfop/core/branded'
 import { ValidationError } from '../typed-errors'
 
 export type valueOf<T> = T[keyof T]
