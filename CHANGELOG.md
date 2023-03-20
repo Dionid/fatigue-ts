@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.21](https://github.com/Dionid/FDDF.ts/compare/v0.0.20...v0.0.21) (2023-03-20)
+
+
+### Bug Fixes
+
+* cd lib ([643a227](https://github.com/Dionid/FDDF.ts/commit/643a2273253835f1734af52b13a927b443351096))
+
 ### [0.0.20](https://github.com/Dionid/FDDF.ts/compare/v0.0.19...v0.0.20) (2023-03-20)
 
 
