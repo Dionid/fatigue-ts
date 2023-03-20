@@ -21,6 +21,16 @@ https://fdd.davidshekunts.ru
 npm i @fddf-ts/core
 ```
 
+# Release
+
+```
+# Locally
+git add .
+git commit -m "..."
+npm run publish:(prerelease | patch | minor | major)
+git push --follow-tags origin main
+```
+
 # Based on
 
 - λ Functional Oriented Programming (https://github.com/Dionid/fop-ts)
