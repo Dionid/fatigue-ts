@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-
+npm run lerna:beatify:check
 npm run lerna:build
 npm run lerna:test:unit

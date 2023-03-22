@@ -1,5 +1,6 @@
 node_modules
 dist
 lib
+coverage
 .eslintrc.js
 controller-features.ts

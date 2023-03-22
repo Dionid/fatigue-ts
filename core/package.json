@@ -36,10 +36,10 @@
     "copy-assets": "cp package.json ./lib && cp README.md ./lib",
     "test:unit": "jest --config jest.config.unit.json --passWithNoTests",
     "test": "npm run test:unit",
-    "publish:prerelease": "npm run beatify:check && npm run build && standard-version --prerelease && npm publish",
-    "publish:patch": "npm run beatify:check && npm run build && standard-version --release-as patch && npm publish",
-    "publish:minor": "npm run beatify:check && npm run build && standard-version --release-as minor && npm publish",
-    "publish:major": "npm run beatify:check && npm run build && standard-version --release-as major && npm publish"
+    "publish:prerelease": "npm run beatify:check && npm run build && standard-version --prerelease -t @fatigue-ts/core && npm publish",
+    "publish:patch": "npm run beatify:check && npm run build && standard-version --release-as patch -t @fatigue-ts/core && npm publish",
+    "publish:minor": "npm run beatify:check && npm run build && standard-version --release-as minor -t @fatigue-ts/core && npm publish",
+    "publish:major": "npm run beatify:check && npm run build && standard-version --release-as major -t @fatigue-ts/core && npm publish"
   },
   "author": "David Shekunts <ditreyw@gmail.com>",
   "repository": {
