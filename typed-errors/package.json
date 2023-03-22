@@ -1,6 +1,6 @@
 {
   "name": "@fatigue-ts/typed-errors",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Typed Errors for TypeScript",
   "main": "./lib/index.js",
   "module": "./lib/es6/index.js",
