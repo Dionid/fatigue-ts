@@ -1,0 +1,69 @@
+{
+  "name": "@fatigue-ts/typed-errors",
+  "version": "0.0.2",
+  "description": "Typed Errors for TypeScript",
+  "main": "./lib/index.js",
+  "module": "./lib/es6/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "index": [
+        "lib/index.d.ts"
+      ]
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prettier:base": "prettier \"**/*.{js,ts{,x},yml,yaml,json,md}\" --config ../.prettierrc --ignore-path ../.prettierignore",
+    "prettier:write": "npm run prettier:base -- --write",
+    "prettier:check": "npm run prettier:base -- --check",
+    "lint:base": "eslint -c ../.eslintrc.js --ignore-path ../.eslintignore",
+    "lint:check": "npm run lint:base -- --max-warnings 0 --format stylish \"!(node_modules)/**/*.ts{,x}\"",
+    "lint:fix": "npm run lint:base -- --fix --max-warnings 0 --format stylish \"src/**/*.ts{,x}\"",
+    "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts}\"",
+    "beatify:check": "npm run spell:check && npm run lint:check && npm run prettier:check",
+    "beatify:write": "npm run spell:check && npm run lint:fix && npm run prettier:write",
+    "clean": "rimraf ./lib",
+    "prebuild": "npm run clean",
+    "build:lib": "tsc -P tsconfig.build.json",
+    "build:es": "tsc -P tsconfig.build-es6.json",
+    "build": "npm run build:lib && npm run build:es",
+    "copy-assets": "cp package.json ./lib && cp README.md ./lib",
+    "test:unit": "jest --config jest.config.unit.json --passWithNoTests",
+    "test": "npm run test:unit",
+    "publish:prerelease": "npm run beatify:check && npm run build && standard-version --prerelease && npm publish",
+    "publish:patch": "npm run beatify:check && npm run build && standard-version --release-as patch && npm publish",
+    "publish:minor": "npm run beatify:check && npm run build && standard-version --release-as minor && npm publish",
+    "publish:major": "npm run beatify:check && npm run build && standard-version --release-as major && npm publish"
+  },
+  "author": "David Shekunts <ditreyw@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dionid/FDDF.ts.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.7",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.9.4"
+  },
+  "bugs": {
+    "url": "https://github.com/Dionid/FDDF.ts/issues"
+  },
+  "homepage": "https://github.com/Dionid/FDDF.ts",
+  "tags": [
+    "typescript",
+    "error handling"
+  ],
+  "keywords": [
+    "typescript",
+    "error handling"
+  ]
+}
