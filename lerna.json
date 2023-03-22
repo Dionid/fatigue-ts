@@ -1,0 +1,7 @@
+{
+  "exact": true,
+  "useNx": true,
+  "useWorkspaces": true,
+  "npmClient": "npm",
+  "version": "independent"
+}

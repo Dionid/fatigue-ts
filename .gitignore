@@ -1,9 +1,10 @@
 *.log
 node_modules
-/dist
-/lib
+dist
+lib
 dev
 .idea
 coverage
 docs/examples
 junit_unit.xml
+lib

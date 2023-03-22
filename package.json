@@ -1,38 +1,32 @@
 {
-  "name": "@fddf-ts/core",
-  "version": "0.0.21",
+  "name": "@fatigue-ts/mono",
+  "version": "0.0.0",
   "description": "Fatigue Driven Development (FDD) in Typescript",
   "main": "index.js",
   "module": "es/index.js",
   "typings": "index.d.ts",
+  "workspaces": [
+    "core",
+    "fatigue-knex",
+    "fatigue-pino",
+    "lq",
+    "retry",
+    "typed-errors"
+  ],
   "scripts": {
-    "lint:check": "eslint --max-warnings 0 --format stylish \"src/**/*.ts{,x}\"",
-    "lint:fix": "eslint --fix --max-warnings 0 --format stylish \"src/**/*.ts{,x}\"",
-    "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts}\"",
-    "prettier:check": "prettier --check \"src/**/*.ts\"",
-    "prettier:write": "prettier --write \"src/**/*.ts\"",
-    "beatify:check": "npm run spell:check && npm run lint:check && npm run prettier:check",
-    "beatify:write": "npm run spell:check && npm run lint:fix && npm run prettier:write",
-    "clean": "rimraf ./lib",
-    "prebuild": "npm run clean",
-    "build:lib": "tsc -P tsconfig.build.json",
-    "build:es": "tsc -P tsconfig.build-es6.json",
-    "build": "npm run build:lib && npm run build:es",
-    "copy-assets": "cp package.json ./lib && cp README.md ./lib",
     "lint-staged": "lint-staged",
-    "test:unit": "jest --config jest.config.unit.json --passWithNoTests",
-    "test": "npm run test:unit",
-    "publish:prerelease": "npm run beatify:check && npm run build && standard-version --prerelease && npm run copy-assets && cd ./lib && npm publish",
-    "publish:patch": "npm run beatify:check && npm run build && standard-version --release-as patch && npm run copy-assets && cd ./lib && npm publish",
-    "publish:minor": "npm run beatify:check && npm run build && standard-version --release-as minor && npm run copy-assets && cd ./lib && npm publish",
-    "publish:major": "npm run beatify:check && npm run build && standard-version --release-as major && npm run copy-assets && cd ./lib && npm publish"
+    "lerna:build": "lerna run build",
+    "lerna:test:unit": "lerna run test:unit",
+    "lerna:beatify:check": "lerna run beatify:check",
+    "lerna:beatify:write": "lerna run beatify:write",
+    "lerna:prettier:check": "lerna run prettier:check"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
-      "npm run beatify:check"
+      "npm run lerna:beatify:check"
     ],
     "**/*.{js,yml,yaml,json,md}": [
-      "npm run prettier:check"
+      "npm run lerna:prettier:check"
     ]
   },
   "author": "David Shekunts <ditreyw@gmail.com>",
@@ -83,11 +77,7 @@
     "functional-programming"
   ],
   "dependencies": {
-    "uuid": "^8.3.2"
-  },
-  "peerDependencies": {
-    "@fapfop/core": "^0.0.45",
-    "knex": "^0.95.14",
-    "pino": "^8.11.0"
+    "lerna": "^6.5.1",
+    "nx": "^15.8.7"
   }
 }
