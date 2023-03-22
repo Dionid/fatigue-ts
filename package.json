@@ -32,7 +32,7 @@
   "author": "David Shekunts <ditreyw@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Dionid/FDDF.ts.git"
+    "url": "git@github.com:Dionid/Fatigue-ts.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -63,9 +63,9 @@
     "typescript": "^4.9.4"
   },
   "bugs": {
-    "url": "https://github.com/Dionid/FDDF.ts/issues"
+    "url": "https://github.com/Dionid/Fatigue-ts/issues"
   },
-  "homepage": "https://github.com/Dionid/FDDF.ts",
+  "homepage": "https://github.com/Dionid/Fatigue-ts",
   "tags": [
     "typescript",
     "algebraic-data-types",
