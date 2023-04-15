@@ -1,7 +1,7 @@
 {
-  "name": "@fatigue-ts/core",
+  "name": "@fatigue-ts/typed-json",
   "version": "0.0.1",
-  "description": "Fatigue Driven Development Core for TypeScript",
+  "description": "Typed JSON for TypeScript",
   "main": "./lib/index.js",
   "module": "./lib/es6/index.js",
   "types": "./lib/index.d.ts",
@@ -36,10 +36,10 @@
     "copy-assets": "cp package.json ./lib && cp README.md ./lib",
     "test:unit": "jest --config jest.config.unit.json --passWithNoTests",
     "test": "npm run test:unit",
-    "publish:prerelease": "npm run beatify:check && npm run build && standard-version --prerelease -t @fatigue-ts/core && npm publish",
-    "publish:patch": "npm run beatify:check && npm run build && standard-version --release-as patch -t @fatigue-ts/core && npm publish",
-    "publish:minor": "npm run beatify:check && npm run build && standard-version --release-as minor -t @fatigue-ts/core && npm publish",
-    "publish:major": "npm run beatify:check && npm run build && standard-version --release-as major -t @fatigue-ts/core && npm publish"
+    "publish:prerelease": "npm run beatify:check && npm run build && standard-version --prerelease -t @fatigue-ts/typed-errors && npm publish",
+    "publish:patch": "npm run beatify:check && npm run build && standard-version --release-as patch -t @fatigue-ts/typed-errors && npm publish",
+    "publish:minor": "npm run beatify:check && npm run build && standard-version --release-as minor -t @fatigue-ts/typed-errors && npm publish",
+    "publish:major": "npm run beatify:check && npm run build && standard-version --release-as major -t @fatigue-ts/typed-errors && npm publish"
   },
   "author": "David Shekunts <ditreyw@gmail.com>",
   "repository": {
@@ -54,6 +54,9 @@
     "jest": "^27.3.1",
     "ts-jest": "^27.0.7",
     "typescript": "^4.9.4"
+  },
+  "peerDependencies": {
+    "@fatigue-ts/typed-errors": "^0.0.1"
   },
   "bugs": {
     "url": "https://github.com/Dionid/Fatigue-ts/issues"
