@@ -11,7 +11,8 @@
     "fatigue-pino",
     "lq",
     "retry",
-    "typed-errors"
+    "typed-errors",
+    "typed-json"
   ],
   "scripts": {
     "lint-staged": "lint-staged",
