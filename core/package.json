@@ -1,6 +1,6 @@
 {
   "name": "@fatigue-ts/core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Fatigue Driven Development Core for TypeScript",
   "main": "./lib/index.js",
   "module": "./lib/es6/index.js",
