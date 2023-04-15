@@ -1,6 +1,6 @@
 {
   "name": "@fatigue-ts/typed-json",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Typed JSON for TypeScript",
   "main": "./lib/index.js",
   "module": "./lib/es6/index.js",
