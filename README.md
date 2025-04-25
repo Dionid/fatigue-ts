@@ -29,21 +29,6 @@ git push --follow-tags origin main
 
 - λ Functional Oriented Programming (https://github.com/Dionid/fop-ts)
 
-# Used by
-
-- 💬 Teleadmin (https://github.com/Dionid/teleadmin) – Admin and CRM for Telegram.
-
-# News
-
-All news and announcements you can find in:
-
-🦾 IT-Качалка Давида Шекунца 💪 – https://t.me/it_kachalka
-
-# Roadmap
-
-1. Add tests
-1. Add Node.js 12+ support
-
 # License
 
 The MIT License (MIT)
